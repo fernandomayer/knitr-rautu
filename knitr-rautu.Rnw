@@ -89,7 +89,7 @@
 
 <<setup, include=FALSE, cache=FALSE>>=
 ## Opcoes globais
-opts_chunk$set(size = "footnotesize", cache = TRUE)
+opts_chunk$set(size = "footnotesize", cache = TRUE, tidy = FALSE)
                ## prompt = FALSE,
                ## comment = NA,
                ## tidy = FALSE,
@@ -224,6 +224,8 @@ Ainda assim, é possível especificar opções para \textit{chunks} individuais!
 \end{frame}
 
 \begin{frame}[fragile]{Opções}
+  A lista completa de opções está em
+  \small\url{http://yihui.name/knitr/options}\normalsize \vspace{2em}
   Algumas opções gerais (* indica o padrão):
   \begin{itemize}
   \item \texttt{eval}: \texttt{TRUE}*, \texttt{FALSE}, ou
@@ -330,6 +332,64 @@ opts_chunk$set(size = "small",
   \item Muito útil para documentos muito longos ou com comandos
     demorados ou bases de dados grandes
   \end{itemize}
+\end{frame}
+
+\section{Tabelas}
+
+\begin{frame}[fragile]{Tabelas}
+Tabelas geradas pelo \R podem ser incluídas no documento \LaTeX com o
+pacote \texttt{xtable} \\ \vspace{1em}
+\verb|<<results="asis", echo=FALSE>>=|
+<<eval=FALSE>>=
+## Carrega o pacote
+require(xtable, quietly = TRUE)
+## Tira uma amostra de 10 linhas da base de dados Iris
+am <- sample(1:nrow(iris), size = 10)
+iris.am <- iris[am, ]
+## Gera a tabela com código do LaTeX
+xtable(iris.am)
+@
+\verb|@|
+\end{frame}
+
+\begin{frame}[fragile]{Tabelas}
+As opções usadas são:
+\begin{itemize}
+\item \verb|results="asis"|: para o resultado ser a saída pura do \R
+  (ao invés de tentar decorar). Outras opções são: \texttt{markup}*,
+  \texttt{hold} e \texttt{hide}
+\item \verb|echo=FALSE|: para que o código em \LaTeX{} que gera a tabela
+  não seja mostrado. Outra opção seria: \verb|echo=c(1:5)| para mostrar
+  o código até a geração da tabela. \\ \vspace{1em}
+  Tente com \verb|echo=TRUE|
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Tabelas}
+Inserindo legendas e referências pelo \texttt{xtable}
+<<eval=FALSE>>=
+xtable(iris.am,
+       caption = "Uma legenda para a tabela",
+       label = "tab:iris")
+@
+No texto você pode referênciar como \verb|\ref{tab:iris}|
+\end{frame}
+
+\begin{frame}[fragile]{Tabelas}
+Para alterar a posição da legenda, precisamos do método \texttt{print()}
+para o \texttt{xtable}
+<<eval=FALSE>>=
+tab <- xtable(iris.am,
+              caption = "Uma legenda para a tabela",
+              label = "tab:iris2")
+print(tab, caption.placement = "top")
+@
+Muitas outras opções de formatação estão disponíveis nestas duas
+funções. Veja
+\begin{itemize}
+\item[] \verb|?xtable|
+\item[] \verb|?print.xtable|
+\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]

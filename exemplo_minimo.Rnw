@@ -40,5 +40,48 @@ rnorm(10,
       10, 5)
 @
 
+<<results='asis', echo=c(1:5)>>=
+## Carrega o pacote
+require(xtable, quietly = TRUE)
+## Tira uma amostra de 10 linhas da base de dados Iris
+am <- sample(1:nrow(iris), size = 10)
+iris.am <- iris[am, ]
+## Gera a tabela com código do LaTeX
+xtable(iris.am)
+@
+
+A tabela abaixo é a tabela de número \ref{tab:iris}
+
+<<results='asis', echo=FALSE>>=
+## Carrega o pacote
+require(xtable, quietly = TRUE)
+## Tira uma amostra de 10 linhas da base de dados Iris
+am <- sample(1:nrow(iris), size = 10)
+iris.am <- iris[am, ]
+## Gera a tabela com código do LaTeX
+xtable(iris.am,
+       caption = "Uma legenda para a tabela",
+       label = "tab:iris")
+@
+
+Essa é a tabela \ref{tab:iris2} com legenda em cima.
+
+<<results='asis', echo=FALSE>>=
+## Carrega o pacote
+require(xtable, quietly = TRUE)
+## Tira uma amostra de 10 linhas da base de dados Iris
+am <- sample(1:nrow(iris), size = 10)
+iris.am <- iris[am, ]
+## Gera a tabela com código do LaTeX
+tab <- xtable(iris.am,
+              caption = "Uma legenda para a tabela",
+              label = "tab:iris2")
+print(tab, caption.placement = "top")
+@
+
+
+
+
+
 
 \end{document}

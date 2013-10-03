@@ -270,6 +270,8 @@ Ainda assim, é possível especificar opções para \textit{chunks} individuais!
 \end{frame}
 
 \begin{frame}[fragile]{Opções}
+  A lista completa de opções está em
+  \small\url{http://yihui.name/knitr/options}\normalsize \vspace{2em}
   Algumas opções gerais (* indica o padrão):
   \begin{itemize}
   \item \texttt{eval}: \texttt{TRUE}*, \texttt{FALSE}, ou
@@ -383,16 +385,89 @@ opts_chunk$set(size = "small",
   \end{itemize}
 \end{frame}
 
+\section{Tabelas}
+
+\begin{frame}[fragile]{Tabelas}
+Tabelas geradas pelo \R podem ser incluídas no documento \LaTeX com o
+pacote \texttt{xtable} \\ \vspace{1em}
+\verb|<<results="asis", echo=FALSE>>=|
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{## Carrega o pacote}
+\hlkwd{require}\hlstd{(xtable,} \hlkwc{quietly} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+\hlcom{## Tira uma amostra de 10 linhas da base de dados Iris}
+\hlstd{am} \hlkwb{<-} \hlkwd{sample}\hlstd{(}\hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(iris),} \hlkwc{size} \hlstd{=} \hlnum{10}\hlstd{)}
+\hlstd{iris.am} \hlkwb{<-} \hlstd{iris[am, ]}
+\hlcom{## Gera a tabela com código do LaTeX}
+\hlkwd{xtable}\hlstd{(iris.am)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\verb|@|
+\end{frame}
+
+\begin{frame}[fragile]{Tabelas}
+As opções usadas são:
+\begin{itemize}
+\item \verb|results="asis"|: para o resultado ser a saída pura do \R
+  (ao invés de tentar decorar). Outras opções são: \texttt{markup}*,
+  \texttt{hold} e \texttt{hide}
+\item \verb|echo=FALSE|: para que o código em \LaTeX{} que gera a tabela
+  não seja mostrado. Outra opção seria: \verb|echo=c(1:5)| para mostrar
+  o código até a geração da tabela. \\ \vspace{1em}
+  Tente com \verb|echo=TRUE|
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Tabelas}
+Inserindo legendas e referências pelo \texttt{xtable}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{xtable}\hlstd{(iris.am,}
+       \hlkwc{caption} \hlstd{=} \hlstr{"Uma legenda para a tabela"}\hlstd{,}
+       \hlkwc{label} \hlstd{=} \hlstr{"tab:iris"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+No texto você pode referênciar como \verb|\ref{tab:iris}|
+\end{frame}
+
+\begin{frame}[fragile]{Tabelas}
+Para alterar a posição da legenda, precisamos do método \texttt{print()}
+para o \texttt{xtable}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{tab} \hlkwb{<-} \hlkwd{xtable}\hlstd{(iris.am,}
+              \hlkwc{caption} \hlstd{=} \hlstr{"Uma legenda para a tabela"}\hlstd{,}
+              \hlkwc{label} \hlstd{=} \hlstr{"tab:iris2"}\hlstd{)}
+\hlkwd{print}\hlstd{(tab,} \hlkwc{caption.placement} \hlstd{=} \hlstr{"top"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+Muitas outras opções de formatação estão disponíveis nestas duas
+funções. Veja
+\begin{itemize}
+\item[] \verb|?xtable|
+\item[] \verb|?print.xtable|
+\end{itemize}
+\end{frame}
+
 \begin{frame}[fragile]
 Teste
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
 > rnorm(10)
- [1] -0.18155 -0.25880  1.30993 -0.18987  1.39511  0.02522  0.93071
- [8] -0.47489  2.77158 -1.38190
+ [1] -0.90419  0.59333 -1.13343  0.01350  0.45275 -0.18376 -0.09414
+ [8] -2.38049 -0.46908 -0.17733
 > runif(10, 1, 2)
- [1] 1.524 1.180 1.952 1.353 1.192 1.050 1.667 1.935 1.810 1.486
+ [1] 1.442 1.507 1.057 1.547 1.535 1.566 1.285 1.515 1.644 1.538
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
