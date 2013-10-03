@@ -1,0 +1,85 @@
+\documentclass[xcolor={usenames,dvipsnames}]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{alltt}
+\usepackage{here}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{indentfirst}
+\usepackage{multirow}
+\usepackage{makeidx}
+\usepackage{wrapfig}
+\usepackage[all]{xy}
+\usepackage{fancybox}
+\usepackage{rotating}
+\usepackage{eso-pic}
+\usepackage{dcolumn}
+\usepackage{color}
+\usepackage{lscape}
+\usepackage{subfigure}
+\usepackage{scalefnt}
+
+\newcommand{\ds}{\displaystyle}
+
+\usetheme{CambridgeUS}
+
+\definecolor{ESALQ}{RGB}{50,93,61}
+\definecolor{DarkSeaGreen}{RGB}{143,188,143}
+\definecolor{PaleGreen}{RGB}{84,139,84}
+\setbeamercolor{frametitle}{fg=black,bg=DarkSeaGreen}
+\setbeamercolor{structure}{fg=ESALQ}
+\setbeamercolor{palette primary}{fg=ESALQ}
+\setbeamercolor{palette secondary}{fg=ESALQ}
+\setbeamercolor{palette tertiary}{bg=ESALQ}
+\setbeamercolor{title}{fg=black,bg=DarkSeaGreen}
+\setbeamercolor{block title}{fg=black,bg=DarkSeaGreen}
+\setbeamercolor{block title alerted}{bg=DarkSeaGreen}
+\makeindex
+
+\title[Introdução ao $\LaTeX$]{Introdução ao $\LaTeX$}
+\author[]{\small Bruna Gabriela Wendpap \\
+  Djair Durand Ramalho Frade \\
+  Fernando de Pol Mayer \\
+  Luiz Ricardo Nakamura \\
+  Maria Cristina Martins \\
+  Thiago de Paula Oliveira \\
+  Thiago Gentil Ramires \\
+  Profa. responsável: Dra. Roseli Aparecida Leandro
+}
+\institute[ESALQ/USP]{Universidade de São Paulo (USP) \\
+  Escola Superior de Agricultura ``Luiz de Queiroz" (ESALQ)}
+\date[]{23 de Setembro, 2013}
+
+ \AtBeginSection[]
+ {
+   \begin{frame}
+     \frametitle{Plano de aula}
+     \tableofcontents[currentsection]
+   \end{frame}
+ }
+
+ \AtBeginSubsection[]
+ {
+   \begin{frame}
+     \frametitle{Plano de aula}
+     \tableofcontents[currentsection,currentsubsection]
+   \end{frame}
+ }
+
+\begin{document}
+\pgfdeclareimage[height=1.4cm]{logo}{esalq}
+\logo{\pgfuseimage{logo}}
+\frame{\titlepage}
+
+\include{dia1}
+\include{dia2}
+\include{dia3}
+\include{dia4}
+\include{dia5}
+\include{dia6} 
+
+\end{document}
