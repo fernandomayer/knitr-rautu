@@ -79,6 +79,57 @@ tab <- xtable(iris.am,
 print(tab, caption.placement = "top")
 @
 
+Com a saída de um modelo
+
+<<results='asis', echo=1>>=
+mod <- lm(Petal.Length ~ Petal.Width, iris)
+xtable(summary(mod))
+@
+
+\newpage
+
+Figuras.
+
+<<fig1>>=
+plot(iris)
+@
+
+\newpage
+
+<<fig2, out.width=".5\\linewidth">>=
+plot(iris)
+@
+
+\newpage
+
+<<fig3, out.width=".5\\linewidth", fig.align='center'>>=
+plot(iris[, -5])
+@
+
+\newpage
+
+Algum texto sobre a figura \ref{fig:fig4}.
+
+<<fig4,out.width=".5\\linewidth",fig.align="center",fig.cap="Legenda da figura",fig.pos="!htb">>=
+plot(iris)
+@
+
+\newpage
+
+<<fig5, out.width=".5\\linewidth", fig.align='center'>>=
+plot(Petal.Length ~ Petal.Width, iris)
+plot(Sepal.Length ~ Petal.Length, iris)
+@
+
+\newpage
+
+<<fig6, out.width=".45\\linewidth", fig.align='center', fig.show='hold'>>=
+plot(Petal.Length ~ Petal.Width, iris)
+plot(Sepal.Length ~ Petal.Length, iris)
+@
+
+
+
 
 
 

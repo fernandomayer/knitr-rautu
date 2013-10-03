@@ -142,7 +142,7 @@ $X_1 = -0.6265$.
 \hlstd{iris.am} \hlkwb{<-} \hlstd{iris[am, ]}
 \end{alltt}
 \end{kframe}% latex table generated in R 3.0.2 by xtable 1.7-1 package
-% Thu Oct  3 17:10:39 2013
+% Thu Oct  3 18:26:28 2013
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrrrl}
@@ -168,7 +168,7 @@ $X_1 = -0.6265$.
 A tabela abaixo é a tabela de número \ref{tab:iris}
 
 % latex table generated in R 3.0.2 by xtable 1.7-1 package
-% Thu Oct  3 17:10:39 2013
+% Thu Oct  3 18:26:28 2013
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrrrl}
@@ -196,7 +196,7 @@ A tabela abaixo é a tabela de número \ref{tab:iris}
 Essa é a tabela \ref{tab:iris2} com legenda em cima.
 
 % latex table generated in R 3.0.2 by xtable 1.7-1 package
-% Thu Oct  3 17:10:39 2013
+% Thu Oct  3 18:26:28 2013
 \begin{table}[ht]
 \centering
 \caption{Uma legenda para a tabela} 
@@ -218,6 +218,147 @@ Essa é a tabela \ref{tab:iris2} com legenda em cima.
    \hline
 \end{tabular}
 \end{table}
+
+
+
+Com a saída de um modelo
+
+\begin{kframe}
+\begin{alltt}
+\hlstd{mod} \hlkwb{<-} \hlkwd{lm}\hlstd{(Petal.Length} \hlopt{~} \hlstd{Petal.Width, iris)}
+\end{alltt}
+\end{kframe}% latex table generated in R 3.0.2 by xtable 1.7-1 package
+% Thu Oct  3 18:26:28 2013
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrr}
+  \hline
+ & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
+  \hline
+(Intercept) & 1.0836 & 0.0730 & 14.85 & 0.0000 \\ 
+  Petal.Width & 2.2299 & 0.0514 & 43.39 & 0.0000 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
+
+\newpage
+
+Figuras.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{plot}\hlstd{(iris)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/fig1} 
+
+\end{knitrout}
+
+
+\newpage
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{plot}\hlstd{(iris)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.5\linewidth]{figure/fig2} 
+
+\end{knitrout}
+
+
+\newpage
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{plot}\hlstd{(iris[,} \hlopt{-}\hlnum{5}\hlstd{])}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=.5\linewidth]{figure/fig3} 
+
+}
+
+
+
+\end{knitrout}
+
+
+\newpage
+
+Algum texto sobre a figura \ref{fig:fig4}.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{plot}\hlstd{(iris)}
+\end{alltt}
+\end{kframe}\begin{figure}[!htb]
+
+
+{\centering \includegraphics[width=.5\linewidth]{figure/fig4} 
+
+}
+
+\caption[Legenda da figura]{Legenda da figura\label{fig:fig4}}
+\end{figure}
+
+
+\end{knitrout}
+
+
+\newpage
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{plot}\hlstd{(Petal.Length} \hlopt{~} \hlstd{Petal.Width, iris)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=.5\linewidth]{figure/fig51} 
+
+}
+
+
+\begin{kframe}\begin{alltt}
+\hlkwd{plot}\hlstd{(Sepal.Length} \hlopt{~} \hlstd{Petal.Length, iris)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=.5\linewidth]{figure/fig52} 
+
+}
+
+
+
+\end{knitrout}
+
+
+\newpage
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{plot}\hlstd{(Petal.Length} \hlopt{~} \hlstd{Petal.Width, iris)}
+\hlkwd{plot}\hlstd{(Sepal.Length} \hlopt{~} \hlstd{Petal.Length, iris)}
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=.45\linewidth]{figure/fig61} 
+\includegraphics[width=.45\linewidth]{figure/fig62} 
+
+}
+
+
+
+\end{knitrout}
+
 
 
 

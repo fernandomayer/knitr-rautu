@@ -392,19 +392,88 @@ funções. Veja
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-Teste
-<<tidy=TRUE, prompt=TRUE, comment = NA, highlight=FALSE>>=
-rnorm(10)
-runif(10,
-      1, 2)
+\begin{frame}[fragile]{Tabelas}
+  Tente com a saída de um modelo
+<<eval=FALSE>>=
+mod <- lm(Petal.Length ~ Petal.Width, iris)
+xtable(summary(mod))
 @
-Mais
-<<test_label, include=FALSE>>=
-1+1
-@
+\verb|;-)|
 \end{frame}
 
+\section{Figuras}
+
+\begin{frame}[fragile]{Figuras}
+As figuras geradas pelo \R são incluídas automaticamente no documento
+final.\\ \vspace{1em}
+\verb|<<fig1>>=|
+<<eval=FALSE>>=
+plot(iris)
+@
+\verb|@| \\ \vspace{1em}
+Um diretório \verb|figure| é criado automaticamente (veja!) para
+armazenar as figuras. Por isso aqui é importante \textbf{nomear} o
+chunk.
+\end{frame}
+
+\begin{frame}[fragile]{Figuras}
+Por padrão, a figura ocupa a largura da página. Podemos alterar o
+tamanho com as opções \verb|out.width| e \verb|out.height| como no
+\verb|\includegraphics| do \LaTeX{}. Por exemplo:\\ \vspace{1em}
+\verb|<<fig1, out.width=".5\\linewidth">>=|
+<<eval=FALSE>>=
+plot(iris)
+@
+\verb|@| \\ \vspace{1em}
+\end{frame}
+
+\begin{frame}[fragile]{Figuras}
+Para alinhar a figura usamos a opção \verb|fig.align|. Por exemplo: \\
+\vspace{1em}
+\verb|<<fig1, out.width=".5\\linewidth", fig.align="center">>=|
+<<eval=FALSE>>=
+plot(iris)
+@
+\verb|@| \\ \vspace{1em}
+\end{frame}
+
+\begin{frame}[fragile]{Figuras}
+Para adicionar uma legenda escrevemos na opção \verb|fig.cap|. O
+alinhamento deve ser feito em \verb|fig.pos|, como na opção do ambiente
+\verb|figure| do \LaTeX{}:\\ \vspace{1em}
+\verb|\begin{figura}[fig.pos]|\\ \vspace{2em}
+\verb|<<fig1, ..., fig.cap="Legenda da figura", fig.pos="!htb">>=|
+<<eval=FALSE>>=
+plot(iris)
+@
+\verb|@| \\ \vspace{1em}
+Para referenciar a figura no texto, use
+\verb|\ref{fig:<nome do chunk>}|. Nesse caso \verb|\ref{fig:fig1}|
+\end{frame}
+
+\begin{frame}[fragile]{Figuras}
+Para duas figuras: \\ \vspace{1em}
+\verb|<<fig2, out.width=".5\\linewidth", fig.align="center">>=|
+<<eval=FALSE>>=
+plot(Petal.Length ~ Petal.Width, iris)
+plot(Sepal.Length ~ Petal.Length, iris)
+@
+\verb|@| \\ \vspace{1em}
+Serão plotadas separadamente
+\end{frame}
+
+
+\begin{frame}[fragile]{Figuras}
+Para que elas fiquem lado a lado use a opção \verb|fig.show|: \\ \vspace{1em}
+\verb|<<fig2, out.width=".45\\linewidth", ..., fig.show="hold">>=|
+<<eval=FALSE>>=
+plot(Petal.Length ~ Petal.Width, iris)
+plot(Sepal.Length ~ Petal.Length, iris)
+@
+\verb|@| \\ \vspace{1em}
+Repare que \verb|out.width=".45\\linewidth"| para que cada uma ocupe
+45\% da largura da linha.
+\end{frame}
 
 
 \end{document}
