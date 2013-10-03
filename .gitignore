@@ -35,3 +35,7 @@
 ## R
 *.Rhistory
 *.RData
+
+## knitr
+auto/
+

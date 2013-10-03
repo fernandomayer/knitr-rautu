@@ -40,6 +40,18 @@
 \setbeamercolor{block title alerted}{bg=DarkSeaGreen}
 \makeindex
 
+\usepackage{xspace}
+\providecommand{\eg}{\textit{e.g.}\xspace}
+\providecommand{\ie}{\textit{i.e.}\xspace}
+\providecommand{\R}{\textbf{R}\xspace}
+\providecommand{\emacs}{\textbf{Emacs}\xspace}
+\providecommand{\knitr}{\textbf{knitr}\xspace}
+\providecommand{\rstudio}{\textbf{RStudio}\xspace}
+
+%% Fontes para codigo
+\usepackage[scaled]{beramono} % truetype: Bistream Vera Sans Mono
+%\usepackage{inconsolata}
+
 \title[Introdução ao $\LaTeX$]{Introdução ao $\LaTeX$}
 \author[]{\small Bruna Gabriela Wendpap \\
   Djair Durand Ramalho Frade \\
@@ -75,10 +87,120 @@
 \logo{\pgfuseimage{logo}}
 \frame{\titlepage}
 
+<<setup, include=FALSE, cache=FALSE>>=
+## Opcoes globais
+opts_chunk$set(size = "footnotesize")
+               ## prompt = FALSE,
+               ## comment = NA,
+               ## tidy = FALSE,
+               ## cache = TRUE,
+               ## fig.align = "center",
+               ## fig.width = 6,
+               ## fig.height = 4,
+               ## out.width=".7\\textwidth")
+## thm <- knit_theme$get("beamer2")
+## knit_theme$set(thm)
+## options(width = 65, digits = 5, continue = "  ")
+## Use pdfcrop=TRUE nos chunks para reduzir a area do PDF
+## knit_hooks$set(pdfcrop = hook_pdfcrop)
+@
+
+\begin{frame}{Sumário}
+\tableofcontents
+\end{frame}
+
 \section{Introdução}
 
 \begin{frame}{Introdução}
-  Teste
+Teste
+\end{frame}
+
+\section{Configuração}
+
+\begin{frame}[fragile]{Configuração}
+  \begin{itemize}
+  \item O \knitr pode ser utilizado em qualquer editor de texto, mas
+    alguns facilitadores são
+    \begin{itemize}
+    \item \emacs com ESS
+    \item \rstudio
+    \end{itemize}
+  \item Antes de qualquer outra coisa:
+<<eval=FALSE>>=
+install.packages("knitr", dependencies = TRUE)
+@
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Configuração}
+A ideia é fazer a seguinte sequência:
+\begin{enumerate}
+\item Criar um arquivo com a extensão \texttt{.Rnw}
+\item Inserir o preâmbulo tradicional do \LaTeX{}, texto e código
+\item Compilar o arquivo com a função \texttt{knit()} $\rightarrow$ vai
+  gerar um arquivo \texttt{.tex}
+\item Compilar o arquivo \texttt{.tex} no \TeX{}Maker (ou outros)
+  $\rightarrow$ gera o arquivo \texttt{.pdf}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{Configuração}
+Expressões do \R são inseridas normalmente dentro de um ambiente especial
+no arquivo \texttt{.Rnw}:
+\begin{verbatim}
+\Sexpr{''}<<>>=
+...
+@
+\end{verbatim}
+\begin{itemize}
+\item Toda expressão do \R que estiver dentro deste \textbf{chunk} será
+interpretada quando coompilada pelo \knitr, gerando a saída, gráficos,
+etc.
+\item Para inserir resultados no meio do texto (\textit{inline}) use
+  \verb|\Sexpr{}|
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Configuração}
+  \begin{block}{Um exemplo mínimo:}
+    \footnotesize
+\begin{verbatim}
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+
+\begin{document}
+
+Definindo a variável aleatória $X$ com distribuição Normal padrão, ou
+seja, $X \sim \textrm{N}(0,1)$
+\Sexpr{''}<<>>=
+set.seed(1)
+(x <- rnorm(10))
+@
+A média desta variável aleatória é \Sexpr{mean(x)}. O primeiro valor é
+$X_i = \Sexpr{x[1]}$.
+
+\end{document}
+\end{verbatim}
+\end{block}
+
+\end{frame}
+
+\begin{frame}[fragile]
+Teste
+<<tidy=FALSE, prompt=TRUE, comment = NA, highlight=FALSE, background="white">>=
+rnorm(10)
+runif(10,
+      1, 2)
+@
+Mais
+<<test_label, wrapper=TRUE, eval=FALSE>>=
+1+1
+plot(1)
+@
+
 \end{frame}
 
 \end{document}
+

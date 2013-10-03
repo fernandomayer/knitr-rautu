@@ -1,0 +1,17 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+
+\begin{document}
+
+Definindo a variável aleatória $X$ com distribuição Normal padrão, ou
+seja, $X \sim \textrm{N}(0,1)$
+<<>>=
+set.seed(1)
+(x <- rnorm(10))
+@
+A média desta variável aleatória é \Sexpr{mean(x)}. O primeiro valor é
+$X_i = \Sexpr{x[1]}$.
+
+\end{document}
