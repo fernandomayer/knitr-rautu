@@ -31,11 +31,13 @@
 *.vrb
 *.xdy
 *.tdo
+*-concordance.tex
 
 ## R
 *.Rhistory
 *.RData
+Rplots.pdf
 
 ## knitr
 auto/
-
+cache/

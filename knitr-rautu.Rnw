@@ -89,11 +89,10 @@
 
 <<setup, include=FALSE, cache=FALSE>>=
 ## Opcoes globais
-opts_chunk$set(size = "footnotesize")
+opts_chunk$set(size = "footnotesize", cache = TRUE)
                ## prompt = FALSE,
                ## comment = NA,
                ## tidy = FALSE,
-               ## cache = TRUE,
                ## fig.align = "center",
                ## fig.width = 6,
                ## fig.height = 4,
@@ -123,11 +122,12 @@ Teste
     alguns facilitadores são
     \begin{itemize}
     \item \emacs com ESS
+    \item LyX
     \item \rstudio
     \end{itemize}
-  \item Antes de qualquer outra coisa:
+  \item A primeira coisa a fazer no \R é instalar os pacotes necessário:
 <<eval=FALSE>>=
-install.packages("knitr", dependencies = TRUE)
+install.packages(c("knitr", "xtable"), dependencies = TRUE)
 @
   \end{itemize}
 \end{frame}
@@ -169,6 +169,7 @@ etc.
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[brazil]{babel}
+\usepackage[margin=2.5cm]{geometry}
 
 \begin{document}
 
@@ -178,29 +179,173 @@ seja, $X \sim \textrm{N}(0,1)$
 set.seed(1)
 (x <- rnorm(10))
 @
-A média desta variável aleatória é \Sexpr{mean(x)}. O primeiro valor é
-$X_i = \Sexpr{x[1]}$.
+A média desta variável aleatória é %\%Sexpr{mean(x)}. O primeiro
+valor é $X_i = %\%Sexpr{x[1]}$.
 
 \end{document}
 \end{verbatim}
 \end{block}
+\end{frame}
 
+\begin{frame}[fragile]{Configuração}
+No \rstudio, altere as opções para deixar o \knitr como padrão
+\begin{figure}[h]
+  \centering
+  \includegraphics[height=.7\textheight]{RStudio_sweave.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Configuração}
+Com isso, o botão \textbf{Compile PDF}:
+\begin{itemize}
+\item Compila o arquivo \texttt{.Rnw} com o \knitr
+\item Compila o arquivo \texttt{.tex} resultante com o PDF\LaTeX
+\item Abre o PDF no editor padrão
+\end{itemize}
+\begin{block}{}
+  Tudo isso é feito em um ambiente separado da sua área de trabalho
+  original, para não haver confusão com objetos gerados
+\end{block}
+\end{frame}
+
+\section{Opções}
+
+\begin{frame}[fragile]{Opções}
+  \begin{itemize}
+  \item \textbf{Opções específicas}: são opções definidas para cada
+    \textit{chunk} de código, especificadas entre \verb|<<| e \verb|>>|
+  \item \textbf{Opções globais}: são opções definidas para todos os
+    \textit{chunks} do documento, especificadas pela função do \knitr
+<<eval=FALSE>>=
+opts_chunk$set()
+@
+Ainda assim, é possível especificar opções para \textit{chunks} individuais!
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Opções}
+  Algumas opções gerais (* indica o padrão):
+  \begin{itemize}
+  \item \texttt{eval}: \texttt{TRUE}*, \texttt{FALSE}, ou
+    \texttt{c(1,3,4)} ou \texttt{-(4:6)}. Se o código deve ser interpretado
+    ou não. Podem ser especificadas apenas linhas.
+  \item \texttt{echo}: \texttt{TRUE}*, \texttt{FALSE}, ou
+    \texttt{c(1,3,4)} ou \texttt{-(4:6)}. Se deve mostrar ou não o
+    código ou pedaços dele. O resultado sempre aparece. (Diferente de
+    \texttt{eval}, porque sempre será interpretado).
+  \item \texttt{include}: \texttt{TRUE}*, \texttt{FALSE}. Se deve incluir ou não o
+    código no documento final. Útil por exemplo para fazer cálculos
+    auxiliares que não precisam ser mostrados no documento.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Opções}
+Algumas considerações sobre as opções:
+\begin{itemize}
+\item Cada chunk pode ter um nome, por exemplo
+\begin{verbatim}
+\Sexpr{''}<<bloco1>>=
+@
+\end{verbatim}
+que será útil posteriormente para dar nomes à figuras e extração de
+código.
+\item Evite usar espaços e pontos nos nomes dos chunks (use \verb|-| e
+  \verb|_|).
+\item As opções em \verb|<<>>=| devem estar sempre na \textbf{mesma linha}
+\item \textbf{Todas} as opções devem ser expressões válidas do \R
+  \begin{itemize}
+  \item Caracteres entre aspas
+  \item Valores lógicos: \texttt{TRUE} ou \texttt{FALSE}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Opções}
+  \begin{alertblock}{Exercício}
+    \begin{itemize}
+    \item Insira mais 3 chunks no seu arquivo, cada um com pelo menos 3
+      linhas de código do \R
+    \item Teste as opções \texttt{eval}, \texttt{echo}, e
+      \texttt{include} em cada uma delas
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Opções}
+Opções para decoração de código:
+\begin{itemize}
+\item \texttt{prompt}: \texttt{TRUE} ou \texttt{FALSE}*. Se deve
+  ou não inserir o \textit{prompt} (\verb|>|) do \R no início de cada
+  linha.
+\item \texttt{comment}: \verb|"##"|* ou \texttt{NA}. Se deve ou não
+  comentar a saída dos comandos
+\item \texttt{highlight}: \texttt{TRUE}* ou \texttt{FALSE}. Se deve
+  colorir os códigos.
+\item \texttt{size}: \verb|"normalsize"| ou qualquer tamanho de fonte do
+  \LaTeX{} (\verb|"small"|, \verb|"footnotesize"|, $\ldots$)
+\item \texttt{tidy}: \texttt{TRUE}* ou \texttt{FALSE}. Se o código deve
+  ser formatado para um padrão geral pré-definido.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Opções}
+  \begin{alertblock}{Exercício}
+    \begin{itemize}
+    \item Altere estas opções em alguns chunks e veja o resultado
+    \item Em especial escreve esse código dentro de dois chunks separados
+<<eval=FALSE, tidy=FALSE>>=
+rnorm(10,
+      10, 5)
+@
+cada um com \texttt{tidy=TRUE} e \texttt{tidy=FALSE}.
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Opções globais}
+Para definir um padrão para todos os chunks globalmente, podemos
+especificar logo no início do documento as opções que queremos. Por
+exemplo:
+\begin{verbatim}
+\Sexpr{''}<<setup, include=FALSE, cache=FALSE, tidy=FALSE>>=
+# Minhas configurações globais para os chunks
+opts_chunk$set(size = "small",
+               prompt = FALSE,
+               comment = NA,
+               tidy = FALSE,
+               cache = TRUE)
+@
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Opções}
+  O \texttt{cache} (\texttt{TRUE}*/\texttt{FALSE}):
+  \begin{itemize}
+  \item Armazena os resultados dos chunks em disco
+    \begin{itemize}
+    \item Cria um diretório \verb|cache|
+    \end{itemize}
+  \item Esse resultado será reaproveitado nas próximas compilações,
+    portanto um chunk em cache não será interpretado novamente
+  \item Muito útil para documentos muito longos ou com comandos
+    demorados ou bases de dados grandes
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
 Teste
-<<tidy=FALSE, prompt=TRUE, comment = NA, highlight=FALSE, background="white">>=
+<<tidy=TRUE, prompt=TRUE, comment = NA, highlight=FALSE>>=
 rnorm(10)
 runif(10,
       1, 2)
 @
 Mais
-<<test_label, wrapper=TRUE, eval=FALSE>>=
+<<test_label, include=FALSE>>=
 1+1
-plot(1)
 @
-
 \end{frame}
+
+
 
 \end{document}
 

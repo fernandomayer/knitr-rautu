@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[brazil]{babel}
+\usepackage[margin=2.5cm]{geometry}
 
 \begin{document}
 
@@ -12,6 +13,32 @@ set.seed(1)
 (x <- rnorm(10))
 @
 A média desta variável aleatória é \Sexpr{mean(x)}. O primeiro valor é
-$X_i = \Sexpr{x[1]}$.
+$X_1 = \Sexpr{x[1]}$.
+
+<<chunk1, eval=FALSE>>=
+rnorm(10)
+@
+
+<<chunk2, echo=-3>>=
+set.seed(1)
+rbeta(10, 2, 5)
+rnorm(10)
+rgamma(10, 2, 5)
+@
+
+<<chunk3, include=FALSE>>=
+rnorm(10)
+@
+
+<<tidy=TRUE>>=
+rnorm(10,
+      10, 5)
+@
+
+<<tidy=FALSE>>=
+rnorm(10,
+      10, 5)
+@
+
 
 \end{document}

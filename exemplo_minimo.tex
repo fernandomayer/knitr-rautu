@@ -51,6 +51,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[brazil]{babel}
+\usepackage[margin=2.5cm]{geometry}
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 
 \begin{document}
@@ -71,6 +72,66 @@ seja, $X \sim \textrm{N}(0,1)$
 \end{knitrout}
 
 A média desta variável aleatória é 0.1322. O primeiro valor é
-$X_i = -0.6265$.
+$X_1 = -0.6265$.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{rnorm}\hlstd{(}\hlnum{10}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{set.seed}\hlstd{(}\hlnum{1}\hlstd{)}
+\hlkwd{rbeta}\hlstd{(}\hlnum{10}\hlstd{,} \hlnum{2}\hlstd{,} \hlnum{5}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+##  [1] 0.1755 0.3243 0.1456 0.3570 0.1477 0.3944 0.4582 0.2280 0.6757 0.3710
+##  [1] -0.62124 -2.21470  1.12493 -0.04493 -0.01619  0.94384  0.82122
+##  [8]  0.59390  0.91898  0.78214
+\end{verbatim}
+\begin{alltt}
+\hlkwd{rgamma}\hlstd{(}\hlnum{10}\hlstd{,} \hlnum{2}\hlstd{,} \hlnum{5}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+##  [1] 0.31854 0.77153 0.62490 0.15462 0.19431 0.24504 0.27535 0.16200
+##  [9] 0.05751 0.59225
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+
+
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{rnorm}\hlstd{(}\hlnum{10}\hlstd{,} \hlnum{10}\hlstd{,} \hlnum{5}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+##  [1] 15.783 14.160  8.863 11.331  8.116 22.207  6.023  9.726 11.251 13.091
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{rnorm}\hlstd{(}\hlnum{10}\hlstd{,}
+      \hlnum{10}\hlstd{,} \hlnum{5}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+##  [1]  9.137 -1.120  3.682 11.794  9.945  5.297  9.421  5.925 11.211  2.875
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+
 
 \end{document}
