@@ -83,7 +83,7 @@
  }
 
 \begin{document}
-\pgfdeclareimage[height=1.4cm]{logo}{esalq}
+\pgfdeclareimage[height=1.4cm]{logo}{figure/esalq}
 \logo{\pgfuseimage{logo}}
 \frame{\titlepage}
 
@@ -111,7 +111,20 @@ opts_chunk$set(size = "footnotesize", cache = TRUE, tidy = FALSE)
 \section{Introdução}
 
 \begin{frame}{Introdução}
-Teste
+  \begin{columns}[l]
+    \column{0.49\textwidth}
+    Donald Knuth (1938-- )
+    \begin{figure}[c]
+      \centering
+      \includegraphics[width=.5\textwidth]{figure/knuth}
+    \end{figure}
+
+    \column{0.49\textwidth}
+    \begin{figure}[c]
+      \centering
+      \includegraphics[width=.5\textwidth]{figure/knuth}
+    \end{figure}
+  \end{columns}
 \end{frame}
 
 \section{Configuração}
@@ -154,7 +167,7 @@ no arquivo \texttt{.Rnw}:
 \end{verbatim}
 \begin{itemize}
 \item Toda expressão do \R que estiver dentro deste \textbf{chunk} será
-interpretada quando coompilada pelo \knitr, gerando a saída, gráficos,
+interpretada quando compilada pelo \knitr, gerando a saída, gráficos,
 etc.
 \item Para inserir resultados no meio do texto (\textit{inline}) use
   \verb|\Sexpr{}|
@@ -191,7 +204,7 @@ valor é $X_i = %\%Sexpr{x[1]}$.
 No \rstudio, altere as opções para deixar o \knitr como padrão
 \begin{figure}[h]
   \centering
-  \includegraphics[height=.7\textheight]{RStudio_sweave.png}
+  \includegraphics[height=.7\textheight]{figure/RStudio_sweave.png}
 \end{figure}
 \end{frame}
 
@@ -213,7 +226,7 @@ Com isso, o botão \textbf{Compile PDF}:
 \begin{frame}[fragile]{Opções}
   \begin{itemize}
   \item \textbf{Opções específicas}: são opções definidas para cada
-    \textit{chunk} de código, especificadas entre \verb|<<| e \verb|>>|
+    \textit{chunk} de código, especificadas entre \verb|<<| e \verb|>>=|
   \item \textbf{Opções globais}: são opções definidas para todos os
     \textit{chunks} do documento, especificadas pela função do \knitr
 <<eval=FALSE>>=
@@ -283,7 +296,7 @@ Opções para decoração de código:
   comentar a saída dos comandos
 \item \texttt{highlight}: \texttt{TRUE}* ou \texttt{FALSE}. Se deve
   colorir os códigos.
-\item \texttt{size}: \verb|"normalsize"| ou qualquer tamanho de fonte do
+\item \texttt{size}: \verb|"normalsize"|* ou qualquer tamanho de fonte do
   \LaTeX{} (\verb|"small"|, \verb|"footnotesize"|, $\ldots$)
 \item \texttt{tidy}: \texttt{TRUE}* ou \texttt{FALSE}. Se o código deve
   ser formatado para um padrão geral pré-definido.
@@ -337,7 +350,7 @@ opts_chunk$set(size = "small",
 \section{Tabelas}
 
 \begin{frame}[fragile]{Tabelas}
-Tabelas geradas pelo \R podem ser incluídas no documento \LaTeX com o
+Tabelas geradas pelo \R podem ser incluídas no documento \LaTeX{} com o
 pacote \texttt{xtable} \\ \vspace{1em}
 \verb|<<results="asis", echo=FALSE>>=|
 <<eval=FALSE>>=
@@ -475,6 +488,23 @@ Repare que \verb|out.width=".45\\linewidth"| para que cada uma ocupe
 45\% da largura da linha.
 \end{frame}
 
+\section{\it Tangling}
+
+\begin{frame}[fragile]{\it Tangling}
+\textit{\textbf{Tangling}} é o processo inverso de \textit{weaving}
+  \begin{itemize}
+  \item Serve para extrair apenas o código que está ``emaranhado'' no
+    meio do texto do \LaTeX
+  \end{itemize}
+  No \R use a função \verb|purl()| do \knitr:
+<<eval=FALSE>>=
+## Extrai apenas o código e os comentários
+purl("knitr-template.Rnw", documentation = 0L)
+## Traz também as opções dos chunks (nome, ...)
+purl("knitr-template.Rnw", documentation = 1L)
+@
+
+\end{frame}
 
 \end{document}
 
