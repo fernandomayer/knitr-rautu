@@ -4,7 +4,19 @@
 \usepackage[brazil]{babel}
 \usepackage[margin=2.5cm]{geometry}
 
+\title{Introdução ao uso do knitr}
+\author{Muitos Autores}
+\date{04 de Setembro, 2013}
+
 \begin{document}
+\maketitle
+
+<<setup, include=FALSE, cache=FALSE>>=
+## Opcoes globais
+## tema <- knit_theme$get("solarized-dark")
+## knit_theme$set(tema)
+@
+
 
 Definindo a variável aleatória $X$ com distribuição Normal padrão, ou
 seja, $X \sim \textrm{N}(0,1)$
@@ -30,6 +42,18 @@ rgamma(10, 2, 5)
 rnorm(10)
 @
 
+\newpage
+
+Testando mais opções de chunks.
+
+<<prompt=TRUE, comment=NA>>=
+rnorm(10)
+@
+
+<<highlight=FALSE, size="large">>=
+rnorm(10)
+@
+
 <<tidy=TRUE>>=
 rnorm(10,
       10, 5)
@@ -39,6 +63,10 @@ rnorm(10,
 rnorm(10,
       10, 5)
 @
+
+\newpage
+
+Trabalhando com tabelas.
 
 <<results='asis', echo=c(1:5)>>=
 ## Carrega o pacote
@@ -50,7 +78,9 @@ iris.am <- iris[am, ]
 xtable(iris.am)
 @
 
-A tabela abaixo é a tabela de número \ref{tab:iris}
+\newpage
+
+A tabela abaixo é a tabela de número \ref{tab:iris}.
 
 <<results='asis', echo=FALSE>>=
 ## Carrega o pacote
@@ -60,9 +90,11 @@ am <- sample(1:nrow(iris), size = 10)
 iris.am <- iris[am, ]
 ## Gera a tabela com código do LaTeX
 xtable(iris.am,
-       caption = "Uma legenda para a tabela",
+       caption = "Uma legenda para a tabela.",
        label = "tab:iris")
 @
+
+\newpage
 
 Essa é a tabela \ref{tab:iris2} com legenda em cima.
 
@@ -74,12 +106,32 @@ am <- sample(1:nrow(iris), size = 10)
 iris.am <- iris[am, ]
 ## Gera a tabela com código do LaTeX
 tab <- xtable(iris.am,
-              caption = "Uma legenda para a tabela",
+              caption = "Uma legenda para a tabela.",
               label = "tab:iris2")
 print(tab, caption.placement = "top")
 @
 
-Com a saída de um modelo
+\newpage
+
+Sem nomes de linhas.
+
+<<results='asis', echo=FALSE>>=
+## Carrega o pacote
+require(xtable, quietly = TRUE)
+## Tira uma amostra de 10 linhas da base de dados Iris
+am <- sample(1:nrow(iris), size = 10)
+iris.am <- iris[am, ]
+## Gera a tabela com código do LaTeX
+tab <- xtable(iris.am,
+              caption = "Uma legenda para a tabela.",
+              label = "tab:iris3")
+print(tab, caption.placement = "top",
+      include.rownames = FALSE)
+@
+
+\newpage
+
+Com a saída de um modelo linear.
 
 <<results='asis', echo=1>>=
 mod <- lm(Petal.Length ~ Petal.Width, iris)
@@ -102,7 +154,7 @@ plot(iris)
 
 \newpage
 
-<<fig3, out.width=".5\\linewidth", fig.align='center'>>=
+<<fig3, out.width=".5\\linewidth", fig.align="center">>=
 plot(iris[, -5])
 @
 
@@ -110,7 +162,7 @@ plot(iris[, -5])
 
 Algum texto sobre a figura \ref{fig:fig4}.
 
-<<fig4,out.width=".5\\linewidth",fig.align="center",fig.cap="Legenda da figura",fig.pos="!htb">>=
+<<fig4, out.width=".5\\linewidth",fig.align="center", fig.cap="Legenda da figura.",fig.pos="!htb">>=
 plot(iris)
 @
 

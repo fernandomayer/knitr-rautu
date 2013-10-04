@@ -97,8 +97,8 @@ opts_chunk$set(size = "footnotesize", cache = TRUE, tidy = FALSE)
                ## fig.width = 6,
                ## fig.height = 4,
                ## out.width=".7\\textwidth")
-## thm <- knit_theme$get("beamer2")
-## knit_theme$set(thm)
+## tema <- knit_theme$get("beamer2")
+## knit_theme$set(tema)
 ## options(width = 65, digits = 5, continue = "  ")
 ## Use pdfcrop=TRUE nos chunks para reduzir a area do PDF
 ## knit_hooks$set(pdfcrop = hook_pdfcrop)
@@ -135,10 +135,10 @@ opts_chunk$set(size = "footnotesize", cache = TRUE, tidy = FALSE)
     \item Deixar de escrever programas na ordem imposta pelo computador
     \item Passar a escrever programas na ordem e lógica dos pensamentos
     \end{itemize}
-  \item O conceito e o de misturar \textit{literatura} (o texto em uma
+  \item O conceito é o de misturar \textit{literatura} (o texto em uma
     linguagem humana) com códigos de programação, tornando claro cada
     etapa de um programa
-  \item Obviamente, Knuth criou um sistema chamado \textbf{WEB} para
+  \item (Obviamente) Knuth criou um sistema chamado \textbf{WEB} para
     fazer essa mistura dos seus textos em \TeX{} com a linguagem Pascal
   \item Atualmente muitos outros sistemas existem para misturar códigos
     com texto em várias linguagens
@@ -147,7 +147,7 @@ opts_chunk$set(size = "footnotesize", cache = TRUE, tidy = FALSE)
 
 \begin{frame}{Introdução}
   Na Estatística, com a ascensão do \R no início dos anos 2000,
-  Friedrich Leisch criou o \textbf{Sweave} em 2002
+  \textbf{Friedrich Leisch} criou o \textbf{Sweave} em 2002
   \begin{itemize}
   \item \textbf{S} + \textbf{weave}
   \item Permite ``entrelaçar'' textos do \LaTeX{} com códigos do \R
@@ -162,8 +162,11 @@ opts_chunk$set(size = "footnotesize", cache = TRUE, tidy = FALSE)
 \end{frame}
 
 \begin{frame}{Introdução}
-  No final de 2011, Yihui Xie criou o pacote \textbf{knitr} com a
-  proposta de ser mais flexível, fácil e preparado para a Web
+  No final de 2011, \textbf{Yihui Xie} criou o pacote \textbf{knitr} com
+  a proposta de ser mais flexível, fácil e preparado para a Web
+  \begin{itemize}
+  \item \textbf{knit} + \R
+  \end{itemize}
   \begin{quote}
     knitr = Sweave + cacheSweave + pgfSweave + weaver +
     animation::saveLatex + R2HTML::RweaveHTML +
@@ -253,7 +256,8 @@ etc.
 \end{frame}
 
 \begin{frame}[fragile]{Configuração}
-  \begin{block}{Um exemplo mínimo:}
+  \begin{block}{Um exemplo mínimo (faça no \rstudio e salve com a
+      extensão \texttt{.Rnw})}
     \footnotesize
 \begin{verbatim}
 \documentclass{article}
@@ -291,7 +295,7 @@ Com isso, o botão \textbf{Compile PDF}:
 \begin{itemize}
 \item Compila o arquivo \texttt{.Rnw} com o \knitr
 \item Compila o arquivo \texttt{.tex} resultante com o PDF\LaTeX
-\item Abre o PDF no editor padrão
+\item Abre o PDF no leitor padrão
 \end{itemize}
 \begin{block}{}
   Tudo isso é feito em um ambiente separado da sua área de trabalho
@@ -385,7 +389,7 @@ Opções para decoração de código:
   \begin{alertblock}{Exercício}
     \begin{itemize}
     \item Altere estas opções em alguns chunks e veja o resultado
-    \item Em especial escreve esse código dentro de dois chunks separados
+    \item Em especial escreva esse código dentro de dois chunks separados
 <<eval=FALSE, tidy=FALSE>>=
 rnorm(10,
       10, 5)
@@ -424,6 +428,23 @@ opts_chunk$set(size = "small",
     demorados ou bases de dados grandes
   \end{itemize}
 \end{frame}
+
+\begin{frame}[fragile]{Opções}
+Mudando o tema da decoração de códigos
+\begin{itemize}
+\item Alguns temas prontos estão disponíveis em \verb|knitr/themes|
+\item Você pode criar o seu próprio arquivo \texttt{.css} e colocar
+  nesse mesmo diretório
+\item Para alterar use as funções \verb|knit_theme$get()| e
+  \verb|knit_theme$set()| nas suas \textbf{opções globais}. Por exemplo,
+  para usar o tema \texttt{solarized-dark}
+<<eval=FALSE>>=
+tema <- knit_theme$get("solarized-dark")
+knit_theme$set(tema)
+@
+\end{itemize}
+\end{frame}
+
 
 \section{Tabelas}
 
@@ -475,6 +496,18 @@ tab <- xtable(iris.am,
               label = "tab:iris2")
 print(tab, caption.placement = "top")
 @
+\end{frame}
+
+\begin{frame}[fragile]{Tabelas}
+Para remover os nomes das linhas da tabela (que são atributos do
+\texttt{data.frame}), adicionamos o argumento \texttt{include.rownames}
+<<eval=FALSE>>=
+tab <- xtable(iris.am,
+              caption = "Uma legenda para a tabela",
+              label = "tab:iris3")
+print(tab, caption.placement = "top",
+      include.rownames = FALSE)
+@
 Muitas outras opções de formatação estão disponíveis nestas duas
 funções. Veja
 \begin{itemize}
@@ -489,7 +522,6 @@ funções. Veja
 mod <- lm(Petal.Length ~ Petal.Width, iris)
 xtable(summary(mod))
 @
-\verb|;-)|
 \end{frame}
 
 \section{Figuras}
@@ -516,6 +548,8 @@ tamanho com as opções \verb|out.width| e \verb|out.height| como no
 plot(iris)
 @
 \verb|@| \\ \vspace{1em}
+Note que \verb|out.width=".5\\linewidth"| precisa de duas barras
+\verb|\\| para ser interpretado corretamente pelo \LaTeX{}.
 \end{frame}
 
 \begin{frame}[fragile]{Figuras}
