@@ -3,6 +3,10 @@
 \usepackage[T1]{fontenc}
 \usepackage[brazil]{babel}
 \usepackage[margin=2.5cm]{geometry}
+%% Uma fonte alternativa para o documento geral
+% \usepackage{pslatex}
+%% Fonte alternativa para códigos
+% \usepackage{inconsolata}
 
 \title{Introdução ao uso do knitr}
 \author{Muitos Autores}
