@@ -149,7 +149,6 @@
 \begin{frame}{Introdução}
   \begin{columns}[l]
     \column{0.49\textwidth}
-    Donald Knuth (1938-- )
     \begin{figure}[c]
       \centering
       \includegraphics[width=.5\textwidth]{figure/knuth}
@@ -158,9 +157,88 @@
     \column{0.49\textwidth}
     \begin{figure}[c]
       \centering
-      \includegraphics[width=.5\textwidth]{figure/knuth}
+      \includegraphics[width=.5\textwidth]{figure/Literate_Programming_book_cover}
     \end{figure}
   \end{columns}
+\end{frame}
+
+\begin{frame}{Introdução}
+  \begin{itemize}
+  \item O conceito de \emph{Literate Programming} foi introduzida por
+    Knuth em 1984
+  \item Representa uma mudança de paradigma na computação
+    \begin{itemize}
+    \item Deixar de escrever programas na ordem imposta pelo computador
+    \item Passar a escrever programas na ordem e lógica dos pensamentos
+    \end{itemize}
+  \item O conceito e o de misturar \textit{literatura} (o texto em uma
+    linguagem humana) com códigos de programação, tornando claro cada
+    etapa de um programa
+  \item Obviamente, Knuth criou um sistema chamado \textbf{WEB} para
+    fazer essa mistura dos seus textos em \TeX{} com a linguagem Pascal
+  \item Atualmente muitos outros sistemas existem para misturar códigos
+    com texto em várias linguagens
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Introdução}
+  Na Estatística, com a ascensão do \R no início dos anos 2000,
+  Friedrich Leisch criou o \textbf{Sweave} em 2002
+  \begin{itemize}
+  \item \textbf{S} + \textbf{weave}
+  \item Permite ``entrelaçar'' textos do \LaTeX{} com códigos do \R
+  \item É o \textit{engine} padrão para gerar a documentação de todas as
+    funções do \R
+  \item Ainda é muito utilizado e já é distribuído como uma função do \R
+    dentro do pacote \textbf{utils}
+  \item No entanto, com o passar do tempo, as necessidades dos
+    programadores e a falta de flexibilidade do Sweave fizeram com que
+    diversos pacotes auxiliares tivessem que ser criados
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Introdução}
+  No final de 2011, Yihui Xie criou o pacote \textbf{knitr} com a
+  proposta de ser mais flexível, fácil e preparado para a Web
+  \begin{quote}
+    knitr = Sweave + cacheSweave + pgfSweave + weaver +
+    animation::saveLatex + R2HTML::RweaveHTML +
+    highlight::HighlightWeaveLatex + 0.2 * brew + 0.1 *
+    SweaveListingUtils + more
+  \end{quote}
+\end{frame}
+
+\begin{frame}{Introdução}
+O \textbf{knitr}
+\begin{itemize}
+\item Uma re-implementação mais moderna do Sweave
+\item Adiciona muitas facilidades como
+  \begin{itemize}
+  \item Cache
+  \item Decoração e formatação automática de códigos
+  \item Geração de gráficos mais direta
+  \end{itemize}
+\item Extremamente extensível e customizável
+\item Suporta a geração de documentos para a Web
+  \begin{itemize}
+  \item Markdown
+  \item HTML
+  \end{itemize}
+\item Já é possível usar o \knitr como \textit{engine} de documentação
+  do \R
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Introdução}
+O \textbf{knitr}
+\begin{itemize}
+\item Página com diversas informações \url{http://yihui.name/knitr}
+\item Acompanhe o desenvolvimento pelo GitHub
+  \url{https://github.com/yihui/knitr}
+\item A sintaxe do \textbf{knitr} é parecida, mas não é a mesma que a do
+  \textbf{Sweave}. Se você era um usuário do Sweave antes, leia
+  \url{http://yihui.name/knitr/demo/sweave}
+\end{itemize}
 \end{frame}
 
 \section{Configuração}
