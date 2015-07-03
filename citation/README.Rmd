@@ -35,6 +35,6 @@ Para citar, por exemplo, `r citep(bib[["Zeviani2014"]])` e `r citep(bib[["Bonat2
 
 ## Referências
 
-```{r}
+```{r results="asis", echo=FALSE}
 bibliography()
 ```

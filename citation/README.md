@@ -51,10 +51,6 @@ Para citar, por exemplo, (<a href='#bib-Zeviani2014'>Zeviani, Ribeiro, Bonat, Sh
 ## Referências
 
 
-```r
-bibliography()
-```
-
 ```
 ## Warning in parse_Rd(Rd, encoding = encoding, fragment = fragment, ...):
 ## <connection>:3: unknown macro '\i'
@@ -70,20 +66,18 @@ bibliography()
 ## <connection>:3: unknown macro '\i'
 ```
 
-```
-## <p><a id='bib-Bonat2011'></a><a href="#cite-Bonat2011">[1]</a><cite>
-## W. H. Bonat, P. J. R. Junior and W. M. Zeviani.
-## &ldquo;Comparando predições por modelos geoestat\'\istico e aditivo generalizado para reconstituição de superf\'\icies cont\'\inuas gaussianas&rdquo;.
-## Pt.
-## In: <em>Energia na Agricultura</em> 26.2 (Apr. 2011), pp. 119&ndash;128.
-## ISSN: 1808-8759.
-## URL: <a href="http://200.145.140.50/index.php/energia/article/view/214">http://200.145.140.50/index.php/energia/article/view/214</a>.</cite></p>
-## 
-## <p><a id='bib-Zeviani2014'></a><a href="#cite-Zeviani2014">[2]</a><cite>
-## W. M. Zeviani, P. J. Ribeiro, W. H. Bonat, S. E. Shimakura, et al.
-## &ldquo;The Gamma-count distribution in the analysis of experimental underdispersed data&rdquo;.
-## In: <em>Journal of Applied Statistics</em> 41.12 (Jun. 2014), pp. 1&ndash;11.
-## ISSN: 0266-4763.
-## DOI: <a href="http://dx.doi.org/10.1080/02664763.2014.922168">10.1080/02664763.2014.922168</a>.
-## URL: <a href="http://dx.doi.org/10.1080/02664763.2014.922168">http://dx.doi.org/10.1080/02664763.2014.922168</a>.</cite></p>
-```
+<p><a id='bib-Bonat2011'></a><a href="#cite-Bonat2011">[1]</a><cite>
+W. H. Bonat, P. J. R. Junior and W. M. Zeviani.
+&ldquo;Comparando predições por modelos geoestat\'\istico e aditivo generalizado para reconstituição de superf\'\icies cont\'\inuas gaussianas&rdquo;.
+Pt.
+In: <em>Energia na Agricultura</em> 26.2 (Apr. 2011), pp. 119&ndash;128.
+ISSN: 1808-8759.
+URL: <a href="http://200.145.140.50/index.php/energia/article/view/214">http://200.145.140.50/index.php/energia/article/view/214</a>.</cite></p>
+
+<p><a id='bib-Zeviani2014'></a><a href="#cite-Zeviani2014">[2]</a><cite>
+W. M. Zeviani, P. J. Ribeiro, W. H. Bonat, S. E. Shimakura, et al.
+&ldquo;The Gamma-count distribution in the analysis of experimental underdispersed data&rdquo;.
+In: <em>Journal of Applied Statistics</em> 41.12 (Jun. 2014), pp. 1&ndash;11.
+ISSN: 0266-4763.
+DOI: <a href="http://dx.doi.org/10.1080/02664763.2014.922168">10.1080/02664763.2014.922168</a>.
+URL: <a href="http://dx.doi.org/10.1080/02664763.2014.922168">http://dx.doi.org/10.1080/02664763.2014.922168</a>.</cite></p>
