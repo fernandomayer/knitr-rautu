@@ -1,1 +1,33 @@
 # Citações bibliográficas com knitr
+
+Citações bibliográficas podem ser feitas em documentos Markdown através
+do pacote knitcitations, usando arquivos no formato BibTeX (`.bib`), o
+mesmo utilizado em documentos LaTeX.
+
+Instalar o pacote:
+
+```{r eval=FALSE}
+library(devtools)
+install_github("cboettig/knitcitations")
+```
+
+Ler um arquivo `.bib`
+
+```{r}
+library(knitcitations)
+bib <- read.bibtex("walmes.bib")
+```
+
+Confere os nomes das referências neste arquivo:
+
+```{r}
+names(bib)
+```
+
+Para citar, por exemplo, `r citep(bib[["Zeviani2014"]])` e `r citep(bib[["Bonat2011"]])`.
+
+## Referências
+
+```{r}
+bibliography()
+```
