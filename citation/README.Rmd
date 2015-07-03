@@ -2,7 +2,7 @@
 
 ```{r bibsetup, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitcitations)
-cite_options(citation_format = "pandoc",
+cite_options(citation_format = "text",
              style = "markdown",
              hyperlink = TRUE)
 ```

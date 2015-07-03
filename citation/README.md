@@ -46,7 +46,7 @@ names(bib)
 ##     "Zeviani2014"
 ```
 
-Para citar, por exemplo, [@Zeviani2014] e [@Bonat2011].
+Para citar, por exemplo, ([Zeviani, Ribeiro, Bonat, Shimakura, et al., 2014](#bib-Zeviani2014)) e ([Bonat, Junior, and Zeviani, 2011](#bib-Bonat2011)).
 
 ## Referências
 
