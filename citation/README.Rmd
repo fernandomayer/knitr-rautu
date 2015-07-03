@@ -1,5 +1,12 @@
 # Citações bibliográficas com knitr
 
+```{r bibsetup, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitcitations)
+cite_options(citation_format = "pandoc",
+             style = "markdown",
+             hyperlink = TRUE)
+```
+
 Citações bibliográficas podem ser feitas em documentos Markdown através
 do pacote knitcitations, usando arquivos no formato BibTeX (`.bib`), o
 mesmo utilizado em documentos LaTeX.
