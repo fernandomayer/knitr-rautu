@@ -1,0 +1,1 @@
+# Citações bibliográficas com knitr
