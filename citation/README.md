@@ -46,7 +46,7 @@ names(bib)
 ##     "Zeviani2014"
 ```
 
-Para citar, por exemplo, ([Zeviani, Ribeiro, Bonat, Shimakura, et al., 2014](#bib-Zeviani2014)) e ([Bonat, Junior, and Zeviani, 2011](#bib-Bonat2011)).
+Para citar, por exemplo, (Zeviani, Ribeiro, Bonat, Shimakura, et al., 2014) e (Bonat, Junior, and Zeviani, 2011).
 
 ## Referências
 
@@ -71,19 +71,17 @@ bibliography()
 ```
 
 ```
-## <a name=bib-Bonat2011></a>[[1]](#cite-Bonat2011) W. H. Bonat, P.
-## J. R. Junior and W. M. Zeviani. "Comparando predições por modelos
-## geoestat\'\istico e aditivo generalizado para reconstituição de
-## superf\'\icies cont\'\inuas gaussianas". Pt. In: _Energia na
-## Agricultura_ 26.2 (Apr. 2011), pp. 119-128. ISSN: 1808-8759. URL:
-## [http://200.145.140.50/index.php/energia/article/view/214](http://200.145.140.50/index.php/energia/article/view/214).
+## [1] W. H. Bonat, P. J. R. Junior and W. M. Zeviani. "Comparando
+## predições por modelos geoestat\'\istico e aditivo generalizado
+## para reconstituição de superf\'\icies cont\'\inuas gaussianas".
+## Pt. In: _Energia na Agricultura_ 26.2 (Apr. 2011), pp. 119-128.
+## ISSN: 1808-8759. <URL:
+## http://200.145.140.50/index.php/energia/article/view/214>.
 ## 
-## <a name=bib-Zeviani2014></a>[[2]](#cite-Zeviani2014) W. M.
-## Zeviani, P. J. Ribeiro, W. H. Bonat, S. E. Shimakura, et al. "The
-## Gamma-count distribution in the analysis of experimental
+## [2] W. M. Zeviani, P. J. Ribeiro, W. H. Bonat, S. E. Shimakura, et
+## al. "The Gamma-count distribution in the analysis of experimental
 ## underdispersed data". In: _Journal of Applied Statistics_ 41.12
 ## (Jun. 2014), pp. 1-11. ISSN: 0266-4763. DOI:
-## [10.1080/02664763.2014.922168](http://dx.doi.org/10.1080/02664763.2014.922168).
-## URL:
-## [http://dx.doi.org/10.1080/02664763.2014.922168](http://dx.doi.org/10.1080/02664763.2014.922168).
+## 10.1080/02664763.2014.922168. <URL:
+## http://dx.doi.org/10.1080/02664763.2014.922168>.
 ```
