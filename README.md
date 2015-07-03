@@ -13,12 +13,12 @@ Os arquivos `knitr-rautu.{Rnw, tex, pdf}` contém uma introdução geral ao
 uso do knitr, e fazem parte de um mini-curso apresentado dentro do curso
 "Introdução ao LaTeX", na ESALQ/USP, 23/09 a 04/10, 2013.
 
-O arquivo [knitr-rautu.Rnw]() possui texto em LaTeX e códigos do R
+O arquivo [knitr-rautu.Rnw][] possui texto em LaTeX e códigos do R
 "entrelaçados". Este é o arquivo que usamos para edição. O arquivo
-[knitr-rautu.tex]() é o arquivo processado pelo knitr, e contém diversos
+[knitr-rautu.tex][] é o arquivo processado pelo knitr, e contém diversos
 ambientes gerados automaticamente, os quais você não precisa se
 preocupar. Qualquer alteração deve ser feita no arquivo `.Rnw`. O
-arquivo [knitr-rautu.pdf]() é o resultado final após ser processado com
+arquivo [knitr-rautu.pdf][] é o resultado final após ser processado com
 o LaTeX (`pdflatex`). A partir do arquivo `knitr-rautu.Rnw` você pode
 reproduzir estes slides usando:
 
