@@ -18,7 +18,7 @@ library(devtools)
 install_github("cboettig/knitcitations")
 ```
 
-Ler um arquivo `.bib`
+Ler um arquivo `.bib` do LaTeX
 
 ```{r}
 library(knitcitations)
@@ -31,7 +31,10 @@ Confere os nomes das referências neste arquivo:
 names(bib)
 ```
 
-Para citar, por exemplo, `r citep(bib[["Zeviani2014"]])` e `r citep(bib[["Bonat2011"]])`.
+Para citar, por exemplo, as referências com as tags `Zeviani2014` e
+`Bonat2011`, usamos a função `citep()` dessa forma:
+`citep(bib[["Zeviani2014"]])` que gera `r citep(bib[["Zeviani2014"]])` e
+`citep(bib[["Bonat2011"]])` que gera `r citep(bib[["Bonat2011"]])`.
 
 ## Referências
 

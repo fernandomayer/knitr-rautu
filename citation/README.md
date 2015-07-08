@@ -14,7 +14,7 @@ library(devtools)
 install_github("cboettig/knitcitations")
 ```
 
-Ler um arquivo `.bib`
+Ler um arquivo `.bib` do LaTeX
 
 
 ```r
@@ -46,7 +46,10 @@ names(bib)
 ##     "Zeviani2014"
 ```
 
-Para citar, por exemplo, (<a href='#bib-Zeviani2014'>Zeviani, Ribeiro, Bonat, Shimakura, et al., 2014</a>) e (<a href='#bib-Bonat2011'>Bonat, Junior, and Zeviani, 2011</a>).
+Para citar, por exemplo, as referências com as tags `Zeviani2014` e
+`Bonat2011`, usamos a função `citep()` dessa forma:
+`citep(bib[["Zeviani2014"]])` que gera (<a href='#bib-Zeviani2014'>Zeviani, Ribeiro, Bonat, Shimakura, et al., 2014</a>) e
+`citep(bib[["Bonat2011"]])` que gera (<a href='#bib-Bonat2011'>Bonat, Junior, and Zeviani, 2011</a>).
 
 ## Referências
 
