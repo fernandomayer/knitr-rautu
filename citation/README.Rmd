@@ -36,8 +36,23 @@ Para citar, por exemplo, as referências com as tags `Zeviani2014` e
 `citep(bib[["Zeviani2014"]])` que gera `r citep(bib[["Zeviani2014"]])` e
 `citep(bib[["Bonat2011"]])` que gera `r citep(bib[["Bonat2011"]])`.
 
+O formato das referências pode ser controlado pela função
+`cite_options()`, que neste documento foi configurado da seguinte forma:
+
+```{r eval=FALSE}
+cite_options(citation_format = "text",
+             style = "html",
+             hyperlink = TRUE)
+```
+
 ## Referências
 
-```{r results="asis", echo=FALSE}
+A lista de referências citadas pode ser incluida no final do texto com a
+função `bibliography()`, que permite também modificar o estilo de
+apresentação da lista e a ordem da lista. Mais detalhes em
+`?bibliography`.
+
+```{r results="asis", echo=1}
 bibliography()
+cleanbib()
 ```

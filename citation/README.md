@@ -30,55 +30,53 @@ names(bib)
 ```
 
 ```
-##     RODRIGUES2010         Bonat2011      Carducci2011      Carneiro2011 
-##   "RODRIGUES2010"       "Bonat2011"    "Carducci2011"    "Carneiro2011" 
-##      Clemente2011       Barbosa2012         Bonat2012         Bruhn2012 
-##    "Clemente2011"     "Barbosa2012"       "Bonat2012"       "Bruhn2012" 
-##      Carducci2012         Hoyos2012       Machado2012         Paula2012 
-##    "Carducci2012"       "Hoyos2012"     "Machado2012"       "Paula2012" 
-##      Serafim2012a       Serafim2012        Silva2012a         Souza2012 
-##    "Serafim2012a"     "Serafim2012"      "Silva2012a"       "Souza2012" 
-##       Zeviani2012      Carducci2013       Serafim2013     Centurion2014 
-##     "Zeviani2012"    "Carducci2013"     "Serafim2013"   "Centurion2014" 
-##       DaSilva2014   Lichtemberg2014   Lichtemberg2014      Rozwalka2014 
-##     "DaSilva2014" "Lichtemberg2014" "Lichtemberg2014"    "Rozwalka2014" 
-##       Zeviani2014 
-##     "Zeviani2014"
+##     Bonat2011   Zeviani2014 
+##   "Bonat2011" "Zeviani2014"
 ```
 
 Para citar, por exemplo, as referências com as tags `Zeviani2014` e
 `Bonat2011`, usamos a função `citep()` dessa forma:
-`citep(bib[["Zeviani2014"]])` que gera (<a href='#bib-Zeviani2014'>Zeviani, Ribeiro, Bonat, Shimakura, et al., 2014</a>) e
-`citep(bib[["Bonat2011"]])` que gera (<a href='#bib-Bonat2011'>Bonat, Junior, and Zeviani, 2011</a>).
+`citep(bib[["Zeviani2014"]])` que gera (<a href='#bib-Zeviani2014'>Zeviani, Ribeiro
+Jr, Bonat, Shimakura, et al., 2014</a>) e
+`citep(bib[["Bonat2011"]])` que gera (<a href='#bib-Bonat2011'>Bonat, Ribeiro
+Jr, and Zeviani, 2011</a>).
+
+O formato das referências pode ser controlado pela função
+`cite_options()`, que neste documento foi configurado da seguinte forma:
+
+
+```r
+cite_options(citation_format = "text",
+             style = "html",
+             hyperlink = TRUE)
+```
 
 ## Referências
 
+A lista de referências citadas pode ser incluida no final do texto com a
+função `bibliography()`, que permite também modificar o estilo de
+apresentação da lista e a ordem da lista. Mais detalhes em
+`?bibliography`.
 
-```
-## Warning in parse_Rd(Rd, encoding = encoding, fragment = fragment, ...):
-## <connection>:3: unknown macro '\i'
-```
 
-```
-## Warning in parse_Rd(Rd, encoding = encoding, fragment = fragment, ...):
-## <connection>:3: unknown macro '\i'
-```
-
-```
-## Warning in parse_Rd(Rd, encoding = encoding, fragment = fragment, ...):
-## <connection>:3: unknown macro '\i'
+```r
+bibliography()
 ```
 
 <p><a id='bib-Bonat2011'></a><a href="#cite-Bonat2011">[1]</a><cite>
-W. H. Bonat, P. J. R. Junior and W. M. Zeviani.
-&ldquo;Comparando predições por modelos geoestat\'\istico e aditivo generalizado para reconstituição de superf\'\icies cont\'\inuas gaussianas&rdquo;.
+W. H. Bonat, P. J. Ribeiro
+Jr and W. M. Zeviani.
+&ldquo;Comparando predições por modelos geoestatístico e
+aditivo generalizado para reconstituição de
+superfícies contínuas gaussianas&rdquo;.
 Pt.
 In: <em>Energia na Agricultura</em> 26.2 (Apr. 2011), pp. 119&ndash;128.
 ISSN: 1808-8759.
 URL: <a href="http://200.145.140.50/index.php/energia/article/view/214">http://200.145.140.50/index.php/energia/article/view/214</a>.</cite></p>
 
 <p><a id='bib-Zeviani2014'></a><a href="#cite-Zeviani2014">[2]</a><cite>
-W. M. Zeviani, P. J. Ribeiro, W. H. Bonat, S. E. Shimakura, et al.
+W. M. Zeviani, P. J. Ribeiro
+Jr, W. H. Bonat, S. E. Shimakura, et al.
 &ldquo;The Gamma-count distribution in the analysis of experimental underdispersed data&rdquo;.
 In: <em>Journal of Applied Statistics</em> 41.12 (Jun. 2014), pp. 1&ndash;11.
 ISSN: 0266-4763.
