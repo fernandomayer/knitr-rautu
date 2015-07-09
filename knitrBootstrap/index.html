@@ -1,0 +1,1172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+  
+  <!-- bootstrap -->
+  <!--<link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet"  id="style">-->
+  <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  
+  <!-- highlight.js -->
+  <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/default.min.css" rel="stylesheet" id="code-style">-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/highlight.min.js"></script>
+  <script>
+  hljs.LANGUAGES.r=function(a){var b="([a-zA-Z]|\\.[a-zA-Z.])[a-zA-Z0-9._]*";return{c:[a.HCM,{b:b,l:b,k:{keyword:"function if in break next repeat else for return switch while try tryCatch|10 stop warning require library attach detach source setMethod setGeneric setGroupGeneric setClass ...|10",literal:"NULL NA TRUE FALSE T F Inf NaN NA_integer_|10 NA_real_|10 NA_character_|10 NA_complex_|10"},r:0},{cN:"number",b:"0[xX][0-9a-fA-F]+[Li]?\\b",r:0},{cN:"number",b:"\\d+(?:[eE][+\\-]?\\d*)?L\\b",r:0},{cN:"number",b:"\\d+\\.(?!\\d)(?:i\\b)?",r:0},{cN:"number",b:"\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",r:0},{b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[a.BE],r:0},{cN:"string",b:"'",e:"'",c:[a.BE],r:0}]}}(hljs); </script>
+  <!--<script type="text/javascript", src="https://yandex.st/highlightjs/7.3/languages/r.min.js"></script>-->
+  
+  <!-- Manific Popup -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/0.8.9/jquery.magnific-popup.min.js"></script>
+  
+  <script type="text/javascript"
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+  <script defer="defer">
+  // Function to generate the dynamic table of contents
+  jQuery.fn.generate_TOC = function () {
+    var base = $(this[0]);
+  
+    var selectors = ['h1', 'h2', 'h3', 'h4'];
+  
+    var last_ptr = [{}, {}, {}, {}];
+  
+    var anchors = {};
+  
+    generate_anchor = function (text) {
+      var test = text.replace(/\W/g, '_');
+  
+      while(test in anchors){
+        //if no suffix, add one
+        if(test.match(/_\d+$/) === null){
+          test = test + "_2";
+        }
+        //else generate unique id for duplicates by adding one to the suffix
+        else {
+          test = test.replace(/_(\d+)$/, function(match, number){ var num=+number+1; return("_" + num) });
+        }
+      }
+      anchors[test]=1;
+      return(test);
+    }
+  
+    $(selectors.join(',')).filter(function(index) { return $(this).parent().attr("id") != 'header'; }).each(function () {
+  
+      var heading = $(this);
+      var idx = selectors.indexOf(heading.prop('tagName').toLowerCase());
+      var itr = 0;
+  
+      while (itr <= idx) {
+        if (jQuery.isEmptyObject(last_ptr[itr])) {
+          last_ptr[itr] = $('<ul>').addClass('nav');
+          if (itr === 0) {
+            base.append(last_ptr[itr])
+          } else {
+            if(last_ptr[itr-1].children('li').length === 0){
+              last_ptr[itr-1].append(last_ptr[itr]);
+            }
+            else {
+              last_ptr[itr - 1].children('li').last().append(last_ptr[itr]);
+            }
+          }
+        }
+        itr++;
+      }
+      var anchor = generate_anchor(heading.text());
+      heading.attr('id', anchor);
+      var a = $('<a>')
+      .text(heading.text())
+      .attr('href', '#' + anchor);
+  
+    var li = $('<li>')
+      .append(a);
+  
+    last_ptr[idx].append(li);
+    for (i = idx + 1; i < last_ptr.length; i++) {
+      last_ptr[i] = {};
+    }
+    });
+  }
+  /* run scripts when document is ready */
+  $(function() {
+    "use strict";
+  
+    var $window = $(window);
+    var $body = $(document.body);
+  
+    /* size of thumbnails */
+  
+    var hidden_types = ['source']
+    var output_types = ['output', 'message', 'warning', 'error']
+  
+    /* style tables */
+    $('table').addClass('table table-striped table-bordered table-hover table-condensed');
+  
+    $('pre code').each(function(i, e) {
+      hljs.highlightBlock(e);
+    });
+  
+    /* Magnific Popup */
+    $(".thumbnail").each(function(){
+      $(this).magnificPopup({
+        disableOn: 768,
+        closeOnContentClick: true,
+  
+        type: 'image',
+        items: {
+          src: $(this).find('img').attr('src'),
+        }
+      });
+    });
+  
+    function toggle_block(obj, show) {
+      var span = obj.find('span');
+      if(show === true){
+        span.removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+        obj.next('pre').slideDown();
+      }
+      else {
+        span.removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+        obj.next('pre').slideUp();
+      }
+    }
+  
+    function toggle_thumbnails(imgs, show){
+      if(show === true){
+        imgs.parents().show()
+        imgs.slideDown();
+      }
+      else {
+        imgs.slideUp(400, function(){ $(this).parent().hide(); });
+      }
+    }
+  
+    function global_toggle(obj){
+      var type = obj.attr('type');
+      var show = !obj.parent('li').hasClass('active');
+      if(show === true){
+        obj.parent('li').addClass('active');
+      }
+      else{
+        obj.parent('li').removeClass('active');
+      }
+      if(type == 'figure'){
+        toggle_thumbnails($('.thumbnail img'), show);
+      }
+      else {
+        $('.toggle.' + type).each(function() { toggle_block($(this), show); });
+      }
+    }
+  
+    /* onclick toggle next code block */
+    $('.toggle').click(function() {
+      var span = $(this).find('span');
+      toggle_block($(this), !span.hasClass('glyphicon-chevron-down'));
+      return false
+    })
+  
+    // global toggles
+    $('.toggle-global').click(function(){
+      var type = $(this).attr('type');
+      if(type === 'all-source'){
+          $('li a.source').each(function() {
+            global_toggle($(this));
+          });
+        }
+      else if(type === 'all-output'){
+        $.each(output_types, function(i, val){
+          console.log(val);
+          global_toggle($('li a.' + val));
+        });
+      }
+      else {
+        console.log($(this));
+        global_toggle($(this));
+      }
+      return false;
+    });
+    /* table of contents */
+    if($(['h1', 'h2', 'h3', 'h4'].join(',')).length > 0){
+      $('body > #wrap > .container > .row').append('<div class="col-md-2"><div id="toc" class="well sidebar sidenav affix hidden-print"/></div>');
+      $('#toc').generate_TOC();
+    }
+  
+    $.each(hidden_types, function(i, type) {
+      $('li[type=' + type + ']').each(function(){ global_toggle($(this)); });
+    });
+  
+    /* remove paragraphs with no content */
+    $('p:empty').remove();
+  
+    $body.scrollspy({
+      target: '.sidebar',
+    });
+  
+    /* theme switch */
+    $('.theme-switch').click(function(){
+      var css = $('link[title=' + $(this).attr('title') + ']');
+      $('#theme[rel=stylesheet]').attr('href', css.attr('href'));
+      $('.theme-switch').closest('li').removeClass('active');
+      $(this).closest('li').addClass('active');
+      return false;
+    });
+    /* code style switch */ //TODO use same function for both of these?
+    $('.highlight-switch').click(function(){
+      var css = $('link[title="' + $(this).attr('title') + '"]');
+      $('#highlight[rel=stylesheet]').attr('href', css.attr('href'));
+      $('.highlight-switch').closest('li').removeClass('active');
+      $(this).closest('li').addClass('active');
+      return false;
+    });
+  
+    //TODO refresh on show/hide
+    $window.on('load', function () {
+      $body.scrollspy('refresh');
+    })
+  
+  });
+  
+  </script>
+  <style>
+  /* Knitr_bootstrap styles */
+  #header {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  #wrap .container-fluid {
+    padding: 0;
+    overflow: hidden;
+  }
+  .toggle{
+    text-transform: capitalize;
+  }
+  
+  .toggle-global{
+    text-transform: capitalize;
+  }
+  
+  /* Sticky footer styles */
+  * {
+    margin:0;
+  }
+  html,
+  body {
+      height: 100%;
+      padding:0 !important;
+      /* The html and body elements cannot have any padding or margin. */
+      /*overflow-x: hidden;*/
+  }
+  
+  /* Wrapper for page content to push down footer */
+  #wrap {
+      min-height: 100%;
+      height: auto !important;
+      height: 100%;
+      /* Negative indent footer by it's height */
+      margin: 0 auto -120px;
+  }
+  
+  /* Set the fixed height of the footer here */
+  #push,
+  #footer {
+      height: 120px;
+  }
+  
+  #footer {
+    text-align: center;
+  }
+  
+  /* Top level subheader elements.  These are the first nested items underneath a header element. */
+  .header li {
+    font-size: 20px;
+  }
+  
+  /* Makes the font smaller for all subheader elements. */
+  .sub-header li {
+      font-size: 12px;
+  }
+  
+  button.thumbnails {
+    margin-left:0px;
+  }
+  
+  /*
+   * Side navigation
+   *
+   * Scrollspy and affixed enhanced navigation to highlight sections and secondary
+   * sections of docs content.
+   */
+  
+  /* By default it's not affixed in mobile views, so undo that */
+  .sidebar.affix {
+    position: static;
+  }
+  
+  /* First level of nav */
+  .sidenav {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding-top:    10px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  /* All levels of nav */
+  .sidebar .nav > li > a {
+    display: block;
+    padding: 5px 20px;
+  }
+  .sidebar .nav > li > a:hover,
+  .sidebar .nav > li > a:focus {
+    text-decoration: none;
+    border-right: 1px solid;
+  }
+  .sidebar .nav > .active > a,
+  .sidebar .nav > .active:hover > a,
+  .sidebar .nav > .active:focus > a {
+    font-weight: bold;
+    background-color: transparent;
+    border-right: 1px solid;
+  }
+  
+  /* Nav: second level (shown on .active) */
+  .sidebar .nav .nav {
+    display: none; /* Hide by default, but at >768px, show it */
+    margin-bottom: 8px;
+  }
+  .sidebar .nav .nav > li > a {
+    padding-top:    3px;
+    padding-bottom: 3px;
+    padding-left: 30px;
+    font-size: 90%;
+  }
+  
+  .sidebar .nav .nav .nav > li > a {
+    padding-left: 40px;
+  }
+  .sidebar .nav .nav .nav .nav > li > a {
+    padding-left: 50px;
+  }
+  
+  /* Show and affix the side nav when space allows it */
+  @media screen and (min-width: 992px) {
+    .sidebar .nav > .active > ul {
+      display: block;
+    }
+    /* Widen the fixed sidebar */
+    .sidebar.affix,
+    .sidebar.affix-bottom {
+      width: 213px;
+    }
+    .sidebar.affix-top,
+    .sidebar.affix {
+      position: fixed; /* Undo the static from mobile first approach */
+      top: 30px;
+    }
+    .sidebar.affix-bottom {
+      position: absolute; /* Undo the static from mobile first approach */
+    }
+    .sidebar.affix-bottom .sidenav,
+    .sidebar.affix .sidenav {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+  @media screen and (min-width: 1200px) {
+    /* Widen the fixed sidebar again */
+    .sidebar.affix-bottom,
+    .sidebar.affix {
+      width: 263px;
+    }
+  }
+  
+  #toc {
+    padding: 10px 0px;
+    margin:0;
+    border:0;
+  }
+  
+  
+  .panel pre {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  button + pre {
+    margin: 0;
+    padding: 0;
+  }
+  pre code {
+    border-radius: 0;
+  }
+  /* Magnific Popup CSS */
+  .mfp-bg {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1042;
+    overflow: hidden;
+    position: fixed;
+    background: #0b0b0b;
+    opacity: 0.8;
+    filter: alpha(opacity=80); }
+  
+  .mfp-wrap {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1043;
+    position: fixed;
+    outline: none !important;
+    -webkit-backface-visibility: hidden; }
+  
+  .mfp-container {
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    padding: 0 8px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; }
+  
+  .mfp-container:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle; }
+  
+  .mfp-align-top .mfp-container:before {
+    display: none; }
+  
+  .mfp-content {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 auto;
+    text-align: left;
+    z-index: 1045; }
+  
+  .mfp-inline-holder .mfp-content,
+  .mfp-ajax-holder .mfp-content {
+    width: 100%;
+    cursor: auto; }
+  
+  .mfp-ajax-cur {
+    cursor: progress; }
+  
+  .mfp-zoom-out-cur,
+  .mfp-zoom-out-cur .mfp-image-holder .mfp-close {
+    cursor: -moz-zoom-out;
+    cursor: -webkit-zoom-out;
+    cursor: zoom-out; }
+  
+  .mfp-zoom {
+    cursor: pointer;
+    cursor: -webkit-zoom-in;
+    cursor: -moz-zoom-in;
+    cursor: zoom-in; }
+  
+  .mfp-auto-cursor .mfp-content {
+    cursor: auto; }
+  
+  .mfp-close,
+  .mfp-arrow,
+  .mfp-preloader,
+  .mfp-counter {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none; }
+  
+  .mfp-loading.mfp-figure {
+    display: none; }
+  
+  .mfp-hide {
+    display: none !important; }
+  
+  .mfp-preloader {
+    color: #cccccc;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    text-align: center;
+    margin-top: -0.8em;
+    left: 8px;
+    right: 8px;
+    z-index: 1044; }
+  
+  .mfp-preloader a {
+    color: #cccccc; }
+  
+  .mfp-preloader a:hover {
+    color: white; }
+  
+  .mfp-s-ready .mfp-preloader {
+    display: none; }
+  
+  .mfp-s-error .mfp-content {
+    display: none; }
+  
+  button.mfp-close,
+  button.mfp-arrow {
+    overflow: visible;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    -webkit-appearance: none;
+    display: block;
+    padding: 0;
+    z-index: 1046;
+    -webkit-box-shadow: none;
+    box-shadow: none; }
+  
+  button::-moz-focus-inner {
+    padding: 0;
+    border: 0; }
+  
+  .mfp-close {
+    width: 44px;
+    height: 44px;
+    line-height: 44px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-decoration: none;
+    text-align: center;
+    opacity: 0.65;
+    padding: 0 0 18px 10px;
+    color: white;
+    font-style: normal;
+    font-size: 28px;
+    font-family: Arial, Baskerville, monospace; }
+    .mfp-close:hover, .mfp-close:focus {
+      opacity: 1; }
+    .mfp-close:active {
+      top: 1px; }
+  
+  .mfp-close-btn-in .mfp-close {
+    color: #333333; }
+  
+  .mfp-image-holder .mfp-close,
+  .mfp-iframe-holder .mfp-close {
+    color: white;
+    right: -6px;
+    text-align: right;
+    padding-right: 6px;
+    width: 100%; }
+  
+  .mfp-counter {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #cccccc;
+    font-size: 12px;
+    line-height: 18px; }
+  
+  .mfp-arrow {
+    position: absolute;
+    opacity: 0.65;
+    margin: 0;
+    top: 50%;
+    margin-top: -55px;
+    padding: 0;
+    width: 90px;
+    height: 110px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+  
+  .mfp-arrow:active {
+    margin-top: -54px; }
+  
+  .mfp-arrow:hover,
+  .mfp-arrow:focus {
+    opacity: 1; }
+  
+  .mfp-arrow:before, .mfp-arrow:after,
+  .mfp-arrow .mfp-b,
+  .mfp-arrow .mfp-a {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin-top: 35px;
+    margin-left: 35px;
+    border: medium inset transparent; }
+  .mfp-arrow:after,
+  .mfp-arrow .mfp-a {
+    border-top-width: 13px;
+    border-bottom-width: 13px;
+    top: 8px; }
+  .mfp-arrow:before,
+  .mfp-arrow .mfp-b {
+    border-top-width: 21px;
+    border-bottom-width: 21px; }
+  
+  .mfp-arrow-left {
+    left: 0; }
+    .mfp-arrow-left:after,
+    .mfp-arrow-left .mfp-a {
+      border-right: 17px solid white;
+      margin-left: 31px; }
+    .mfp-arrow-left:before,
+    .mfp-arrow-left .mfp-b {
+      margin-left: 25px;
+      border-right: 27px solid #3f3f3f; }
+  
+  .mfp-arrow-right {
+    right: 0; }
+    .mfp-arrow-right:after,
+    .mfp-arrow-right .mfp-a {
+      border-left: 17px solid white;
+      margin-left: 39px; }
+    .mfp-arrow-right:before,
+    .mfp-arrow-right .mfp-b {
+      border-left: 27px solid #3f3f3f; }
+  
+  .mfp-iframe-holder {
+    padding-top: 40px;
+    padding-bottom: 40px; }
+  
+  .mfp-iframe-holder .mfp-content {
+    line-height: 0;
+    width: 100%;
+    max-width: 900px; }
+  
+  .mfp-iframe-scaler {
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    padding-top: 56.25%; }
+  
+  .mfp-iframe-scaler iframe {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+    background: black; }
+  
+  .mfp-iframe-holder .mfp-close {
+    top: -40px; }
+  
+  /* Main image in popup */
+  img.mfp-img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    line-height: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 40px 0 40px;
+    margin: 0 auto; }
+  
+  /* The shadow behind the image */
+  .mfp-figure:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 40px;
+    bottom: 40px;
+    display: block;
+    right: 0;
+    width: auto;
+    height: auto;
+    z-index: -1;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+    background: #444444; }
+  
+  .mfp-figure {
+    line-height: 0; }
+  
+  .mfp-bottom-bar {
+    margin-top: -36px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    cursor: auto; }
+  
+  .mfp-title {
+    text-align: left;
+    line-height: 18px;
+    color: #f3f3f3;
+    word-wrap: break-word;
+    padding-right: 36px; }
+  
+  .mfp-figure small {
+    color: #bdbdbd;
+    display: block;
+    font-size: 12px;
+    line-height: 14px; }
+  
+  .mfp-image-holder .mfp-content {
+    max-width: 100%; }
+  
+  .mfp-gallery .mfp-image-holder .mfp-figure {
+    cursor: pointer; }
+  
+  @media screen and (max-width: 800px) and (orientation: landscape), screen and (max-height: 300px) {
+    /**
+     * Remove all paddings around the image on small screen
+     */
+    .mfp-img-mobile .mfp-image-holder {
+      padding-left: 0;
+      padding-right: 0; }
+  
+    .mfp-img-mobile img.mfp-img {
+      padding: 0; }
+  
+    /* The shadow behind the image */
+    .mfp-img-mobile .mfp-figure:after {
+      top: 0;
+      bottom: 0; }
+  
+    .mfp-img-mobile .mfp-bottom-bar {
+      background: rgba(0, 0, 0, 0.6);
+      bottom: 0;
+      margin: 0;
+      top: auto;
+      padding: 3px 5px;
+      position: fixed;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box; }
+  
+    .mfp-img-mobile .mfp-bottom-bar:empty {
+      padding: 0; }
+  
+    .mfp-img-mobile .mfp-counter {
+      right: 5px;
+      top: 3px; }
+  
+    .mfp-img-mobile .mfp-close {
+      top: 0;
+      right: 0;
+      width: 35px;
+      height: 35px;
+      line-height: 35px;
+      background: rgba(0, 0, 0, 0.6);
+      position: fixed;
+      text-align: center;
+      padding: 0; }
+  
+    .mfp-img-mobile .mfp-figure small {
+      display: inline;
+      margin-left: 5px; } }
+  @media all and (max-width: 900px) {
+    .mfp-arrow {
+      -webkit-transform: scale(0.75);
+      transform: scale(0.75); }
+  
+    .mfp-arrow-left {
+      -webkit-transform-origin: 0;
+      transform-origin: 0; }
+  
+    .mfp-arrow-right {
+      -webkit-transform-origin: 100%;
+      transform-origin: 100%; }
+  
+    .mfp-container {
+      padding-left: 6px;
+      padding-right: 6px; } }
+  .mfp-ie7 .mfp-img {
+    padding: 0; }
+  .mfp-ie7 .mfp-bottom-bar {
+    width: 600px;
+    left: 50%;
+    margin-left: -300px;
+    margin-top: 5px;
+    padding-bottom: 5px; }
+  .mfp-ie7 .mfp-container {
+    padding: 0; }
+  .mfp-ie7 .mfp-content {
+    padding-top: 44px; }
+  .mfp-ie7 .mfp-close {
+    top: 0;
+    right: 0;
+    padding-top: 0; }
+  
+  //Magnific overrides
+  .mfp-image img{
+    background: white;
+  }
+  .mfp-figure:after {
+    background: white;
+  }
+  
+  /*
+   * Off Canvas navbar toggle right
+   * --------------------------------------------------
+   */
+  
+  @media screen and (max-width: 768px) {
+    .row-offcanvas .collapsing {
+    -webkit-transition: none 0;
+      -moz-transition: none 0;
+      transition: none 0;
+    }
+   .row-offcanvas .navbar {
+    position: absolute;
+    z-index: 2;
+      right:0;
+      height:100%;
+      width:55px;
+      border:0;
+      background-color:transparent;
+    }
+    .row-offcanvas .navbar-toggle {
+      margin-right: 5px;
+      margin-left: 5px;
+    }
+    .row-offcanvas {
+      position: relative;
+    }
+    .row-offcanvas-right.active .navbar {
+    position: absolute;
+    z-index: 2;
+      right: -28.4%;
+      width:40%;
+      background-color:#eee;
+      border:0 solid #ddd;
+      border-left-width:1px;
+    }
+    .row-offcanvas-right.active {
+      left: -30%;
+    }
+    .row-offcanvas-right.active .navbar-collapse {
+      position: relative;
+      width: 100%;
+    }
+    .row-offcanvas .content {
+    /*width:calc(100% - 60px);*/
+    }
+  }
+  </style>
+</head>
+<body>
+<title>
+Documentos com knitrBootstrap
+</title>
+<div id="wrap">
+<div class="container">
+<div class="row row-offcanvas row-offcanvas-right">
+<div class="contents col-xs-12 col-md-10">
+<h1>Usando knitrBootstrap</h1>
+<p>Instalar <a href="https://github.com/jimhester/knitrBootstrap"><code>knitrBootstrap</code></a> e carregar os pacotes</p>
+<div class="row">
+<div class="panel panel-primary">
+<div class="source R panel-heading toggle">
+<h5 class="panel-title">
+<span class="glyphicon glyphicon-chevron-down"></span> R source
+</h5>
+</div>
+<pre style=""><code class="source r">library(knitr)
+library(knitrBootstrap)
+library(rmarkdown)</code></pre>
+</div>
+</div>
+<p>Colocar como YAML fron-matter</p>
+<pre><code>---
+output:
+  knitrBootstrap::bootstrap_document:
+    title: &quot;Alguma coisa
+    theme: Spacelab
+    highlight: Zenburn
+    theme.chooser: TRUE
+    highlight.chooser: TRUE
+---</code></pre>
+<p>Escreva o arquivo <code>Rmd</code> e renderize com</p>
+<div class="row">
+<div class="panel panel-primary">
+<div class="source R panel-heading toggle">
+<h5 class="panel-title">
+<span class="glyphicon glyphicon-chevron-down"></span> R source
+</h5>
+</div>
+<pre style=""><code class="source r">render("arquivo.Rmd", "knitrBootstrap::bootstrap_document")</code></pre>
+</div>
+</div>
+<p>E veja a mágica acontecer!</p>
+<h2>Mais testes</h2>
+<p>Fazendo um teste com knitrBootstrap. Uma lista:</p>
+<ul>
+<li>um item</li>
+<li>dois itens</li>
+<li>três itens</li>
+</ul>
+<h3>Um sub-sub-heading</h3>
+<p>E mais uma lista:</p>
+<ol style="list-style-type: decimal">
+<li>um</li>
+<li>dois</li>
+<li>três</li>
+</ol>
+<h2>Códigos do R</h2>
+<p>Teste com códigos</p>
+<div class="row">
+<div class="panel panel-primary">
+<div class="source R panel-heading toggle">
+<h5 class="panel-title">
+<span class="glyphicon glyphicon-chevron-down"></span> R source
+</h5>
+</div>
+<pre style=""><code class="source r">x <- rnorm(100)
+y <- runif(100)
+x</code></pre>
+</div>
+<div class="panel panel-success">
+<div class="output R panel-heading toggle">
+<h5 class="panel-title">
+<span class="glyphicon glyphicon-chevron-down"></span> R output
+</h5>
+</div>
+<pre style=""><code class="output r">  [1]  0.15984652  0.55850667 -1.38922707 -1.27256760  0.62943681
+  [6]  0.12410707  1.06459486 -1.31032838 -1.17711178 -0.38119501
+ [11] -0.92870933  1.54487476  0.87081981  0.84875750  1.30103650
+ [16] -0.19404478  1.14968599 -0.49583644 -0.63880167  0.34398707
+ [21]  0.49724697  0.05747182 -1.36723897 -0.42406567  0.58645064
+ [26] -0.57028801 -0.95069917 -0.56218802 -0.78825378 -0.41390194
+ [31]  0.40901308  0.39510611  1.56299479  0.81121784 -0.49416997
+ [36]  0.13170301  0.20048151 -0.25144974  0.92774208 -0.42569827
+ [41]  1.18118801  0.27601483  0.62453512  1.19322549 -0.28449958
+ [46] -0.13153169  0.48654673  0.26924735 -0.66698814 -0.91562102
+ [51]  1.07265202 -0.66792721 -0.91297702  3.41925696 -1.33445306
+ [56] -0.68840642  0.79816388  0.66272389 -0.61812058  0.36018529
+ [61] -0.05412056  1.55271582 -0.96599257  0.65813273  1.11432969
+ [66]  0.54419914 -1.08204472  0.22532572 -0.09670234  0.73372401
+ [71] -0.81036079 -1.23735309  2.64671013 -0.39000669 -0.97890959
+ [76]  2.62417244  0.15629937  0.11071151 -0.99051305  0.98966543
+ [81]  0.19474955  0.42637135  0.63546497 -0.60928209 -0.86337737
+ [86] -1.88527487 -0.37222148  1.78400890 -0.41142553  0.47811140
+ [91]  0.21410396 -1.09258823 -1.28351477  0.06865230 -0.77938002
+ [96]  1.22379711  1.17783286  0.51073318  1.20885971 -0.14315595
+</code></pre>
+</div>
+</div>
+<div class="row">
+<div class="panel panel-primary">
+<div class="source R panel-heading toggle">
+<h5 class="panel-title">
+<span class="glyphicon glyphicon-chevron-down"></span> R source
+</h5>
+</div>
+<pre style=""><code class="source r">plot(x,y)</code></pre>
+</div>
+<div class="row">
+<div class="col-md-offset-3 col-md-6">
+<a href="#" class="thumbnail"><img src="data:image/png;base64,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" /> </a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="navbar navbar-fixed-bottom navbar-inverse">
+<div class="container">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+</button>
+</div>
+<div id="bottom-navbar" class="navbar-collapse collapse navbar-responsive-collapse">
+<ul class="nav navbar-nav navbar-right">
+<li class="nav">
+<p class="navbar-text">
+Toggle
+</p>
+</li>
+<li class="dropup">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">Code <b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">
+Languages
+</li>
+<li class="active">
+<a href="#" class="toggle-global source R" type="source.R">R</a>
+</li>
+<li>
+<a href="#" type="all-source" class="toggle-global">All</a>
+</li>
+</ul>
+</li>
+<li class="dropup">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">Output <b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">
+Type
+</li>
+<li class="active">
+<a href="#" class="toggle-global output" type="output">output</a>
+</li>
+<li>
+<a href="#" type="all-output" class="toggle-global">All</a>
+</li>
+</ul>
+</li>
+<li class="active">
+<a href="#" type="figure" class="toggle-global">Figures</a>
+</li>
+</ul>
+<ul class="nav navbar-nav navbar-left">
+<li class="dropup">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">Bootstrap theme <b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li>
+<a class="theme-switch" title="Default" href="#">Default</a>
+</li>
+<li>
+<a class="theme-switch" title="Amelia" href="#">Amelia</a>
+</li>
+<li>
+<a class="theme-switch" title="Cerulean" href="#">Cerulean</a>
+</li>
+<li>
+<a class="theme-switch" title="Cosmo" href="#">Cosmo</a>
+</li>
+<li>
+<a class="theme-switch" title="Cyborg" href="#">Cyborg</a>
+</li>
+<li>
+<a class="theme-switch" title="Journal" href="#">Journal</a>
+</li>
+<li>
+<a class="theme-switch" title="Flatly" href="#">Flatly</a>
+</li>
+<li>
+<a class="theme-switch" title="Readable" href="#">Readable</a>
+</li>
+<li>
+<a class="theme-switch" title="Simplex" href="#">Simplex</a>
+</li>
+<li>
+<a class="theme-switch" title="Slate" href="#">Slate</a>
+</li>
+<li class="active">
+<a class="theme-switch" title="Spacelab" href="#">Spacelab</a>
+</li>
+<li>
+<a class="theme-switch" title="United" href="#">United</a>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="nav navbar-nav navbar-left">
+<li class="dropup">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">Code highlighting <b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li>
+<a class="highlight-switch" title="HighlightJs" href="#">HighlightJs</a>
+</li>
+<li>
+<a class="highlight-switch" title="Dark" href="#">Dark</a>
+</li>
+<li>
+<a class="highlight-switch" title="Far" href="#">Far</a>
+</li>
+<li>
+<a class="highlight-switch" title="Idea" href="#">Idea</a>
+</li>
+<li>
+<a class="highlight-switch" title="Sunburst" href="#">Sunburst</a>
+</li>
+<li class="active">
+<a class="highlight-switch" title="Zenburn" href="#">Zenburn</a>
+</li>
+<li>
+<a class="highlight-switch" title="Visual Studio" href="#">Visual Studio</a>
+</li>
+<li>
+<a class="highlight-switch" title="Ascetic" href="#">Ascetic</a>
+</li>
+<li>
+<a class="highlight-switch" title="Magula" href="#">Magula</a>
+</li>
+<li>
+<a class="highlight-switch" title="Github" href="#">Github</a>
+</li>
+<li>
+<a class="highlight-switch" title="Google Code" href="#">Google Code</a>
+</li>
+<li>
+<a class="highlight-switch" title="Brown Paper" href="#">Brown Paper</a>
+</li>
+<li>
+<a class="highlight-switch" title="School Book" href="#">School Book</a>
+</li>
+<li>
+<a class="highlight-switch" title="IR Black" href="#">IR Black</a>
+</li>
+<li>
+<a class="highlight-switch" title="Solarized - Dark" href="#">Solarized - Dark</a>
+</li>
+<li>
+<a class="highlight-switch" title="Solarized - Light" href="#">Solarized - Light</a>
+</li>
+<li>
+<a class="highlight-switch" title="Arta" href="#">Arta</a>
+</li>
+<li>
+<a class="highlight-switch" title="Monokai" href="#">Monokai</a>
+</li>
+<li>
+<a class="highlight-switch" title="Xcode" href="#">Xcode</a>
+</li>
+<li>
+<a class="highlight-switch" title="Pojoaque" href="#">Pojoaque</a>
+</li>
+<li>
+<a class="highlight-switch" title="Rainbow" href="#">Rainbow</a>
+</li>
+<li>
+<a class="highlight-switch" title="Tomorrow" href="#">Tomorrow</a>
+</li>
+<li>
+<a class="highlight-switch" title="Tomorrow Night" href="#">Tomorrow Night</a>
+</li>
+<li>
+<a class="highlight-switch" title="Tomorrow Night Bright" href="#">Tomorrow Night Bright</a>
+</li>
+<li>
+<a class="highlight-switch" title="Tomorrow Night Blue" href="#">Tomorrow Night Blue</a>
+</li>
+<li>
+<a class="highlight-switch" title="Tomorrow Night Eighties" href="#">Tomorrow Night Eighties</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<link rel="alternate stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" title="Default" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/amelia/bootstrap.min.css" title="Amelia" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/cerulean/bootstrap.min.css" title="Cerulean" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/cosmo/bootstrap.min.css" title="Cosmo" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/cyborg/bootstrap.min.css" title="Cyborg" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/journal/bootstrap.min.css" title="Journal" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/flatly/bootstrap.min.css" title="Flatly" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/readable/bootstrap.min.css" title="Readable" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/simplex/bootstrap.min.css" title="Simplex" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/slate/bootstrap.min.css" title="Slate" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/spacelab/bootstrap.min.css" title="Spacelab" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/united/bootstrap.min.css" title="United" media="screen"></link><link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/default.min.css" title="HighlightJs" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/dark.min.css" title="Dark" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/far.min.css" title="Far" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/idea.min.css" title="Idea" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/sunburst.min.css" title="Sunburst" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/zenburn.min.css" title="Zenburn" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/vs.min.css" title="Visual Studio" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/ascetic.min.css" title="Ascetic" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/magula.min.css" title="Magula" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/github.min.css" title="Github" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/googlecode.min.css" title="Google Code" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/brown_paper.min.css" title="Brown Paper" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/school_book.min.css" title="School Book" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/ir_black.min.css" title="IR Black" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/solarized_dark.min.css" title="Solarized - Dark" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/solarized_light.min.css" title="Solarized - Light" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/arta.min.css" title="Arta" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/monokai.min.css" title="Monokai" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/xcode.min.css" title="Xcode" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/pojoaque.min.css" title="Pojoaque" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/rainbow.min.css" title="Rainbow" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/tomorrow.min.css" title="Tomorrow" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/tomorrow-night.min.css" title="Tomorrow Night" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/tomorrow-night-bright.min.css" title="Tomorrow Night Bright" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/tomorrow-night-blue.min.css" title="Tomorrow Night Blue" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/tomorrow-night-eighties.min.css" title="Tomorrow Night Eighties" media="screen"></link>
+</div>
+<div id="push">
+
+</div>
+<div id="footer">
+<div class="container">
+<p class="text-muted" id="credit">
+Styled with <a href="https://github.com/jimhester/knitrBootstrap">knitrBootstrap</a>
+</p>
+</div>
+</div>
+<link rel="stylesheet" id="theme" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/spacelab/bootstrap.min.css" media="screen"></link><link rel="stylesheet" id="highlight" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/zenburn.min.css" media="screen"></link>
+</div>
+</body>
+</html>

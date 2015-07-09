@@ -1,0 +1,77 @@
+---
+output:
+  knitrBootstrap::bootstrap_document:
+    title: "Documentos com knitrBootstrap"
+    theme: Spacelab
+    highlight: Zenburn
+    theme.chooser: TRUE
+    highlight.chooser: TRUE
+---
+
+```{r setup, include=FALSE}
+opts_chunk$set(comment = NA,
+               bootstrap.panel = TRUE)
+```
+
+# Usando knitrBootstrap
+
+Instalar [`knitrBootstrap`](https://github.com/jimhester/knitrBootstrap)
+e carregar os pacotes
+
+```{r, eval=FALSE}
+library(knitr)
+library(knitrBootstrap)
+library(rmarkdown)
+```
+
+Colocar como YAML fron-matter
+
+```
+---
+output:
+  knitrBootstrap::bootstrap_document:
+    title: "Alguma coisa
+    theme: Spacelab
+    highlight: Zenburn
+    theme.chooser: TRUE
+    highlight.chooser: TRUE
+---
+```
+
+Escreva o arquivo `Rmd` e renderize com
+
+```{r, eval=FALSE}
+render("arquivo.Rmd", "knitrBootstrap::bootstrap_document")
+```
+
+E veja a mágica acontecer!
+
+## Mais testes
+
+Fazendo um teste com knitrBootstrap. Uma lista:
+
+* um item
+* dois itens
+* três itens
+
+### Um sub-sub-heading
+
+E mais uma lista:
+
+1. um
+2. dois
+3. três
+
+## Códigos do R
+
+Teste com códigos
+
+```{r}
+x <- rnorm(100)
+y <- runif(100)
+x
+```
+
+```{r}
+plot(x,y)
+```
