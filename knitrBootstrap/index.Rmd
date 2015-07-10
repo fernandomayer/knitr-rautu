@@ -30,7 +30,7 @@ Colocar como YAML fron-matter
 ---
 output:
   knitrBootstrap::bootstrap_document:
-    title: "Alguma coisa
+    title: "Documentos com knitrBootstrap"
     theme: Spacelab
     highlight: Zenburn
     theme.chooser: TRUE
@@ -74,4 +74,12 @@ x
 
 ```{r}
 plot(x,y)
+```
+
+## Mais gráficos
+
+Mais um gráfico para testar o zoom
+
+```{r}
+hist(x)
 ```
