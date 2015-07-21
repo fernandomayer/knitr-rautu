@@ -1,41 +1,11 @@
-# knitr-rautu
+# knitrBootstrap
 
-Utilização básica do knitr.
+Utilização básica do knitrBootstrap.
 
-O [knitr][] é um pacote do R desenvolvido para produzir relatórios
-dinâmicos, onde é possível misturar texto (LaTeX, Markdown, ...) e
-códigos do R. Ao ser interpretado, um arquivo do knitr (com extensão
-`.Rnw` para LaTeX, e `.Rmd` para Markdown) gera um arquivo PDF ou
-Markdown com as saídas dos comando do R já interpretadas. O knitr
-aprimora e estende o antigo pacote Sweave do R.
+Para ver as instruções gerais acesse
+http://fernandomayer.github.io/knitr-rautu
 
-Os arquivos `knitr-rautu.{Rnw, tex, pdf}` contém uma introdução geral ao
-uso do knitr, e fazem parte de um mini-curso apresentado dentro do curso
-"Introdução ao LaTeX", na ESALQ/USP, 23/09 a 04/10, 2013.
-
-O arquivo [knitr-rautu.Rnw](knitr-rautu.Rnw) possui texto em LaTeX e
-códigos do R "entrelaçados". Este é o arquivo que usamos para edição. O
-arquivo [knitr-rautu.tex](knitr-rautu.tex) é o arquivo processado pelo
-knitr, e contém diversos ambientes gerados automaticamente, os quais
-você não precisa se preocupar. Qualquer alteração deve ser feita no
-arquivo `.Rnw`. O arquivo [knitr-rautu.pdf](knitr-rautu.pdf) é o
-resultado final após ser processado com o LaTeX (`pdflatex`). A partir
-do arquivo `knitr-rautu.Rnw` você pode reproduzir estes slides usando:
-
-```r
-## Carrega o pacote knitr
-library(knitr)
-## Converte Rnw em tex
-knit("knitr-rautu.Rnw")
-## Converte tex em pdf
-system("pdflatex knitr-rautu.tex")
-```
-
-Se você procura por um template básico para dar o primeiro passo com o
-knitr, use o arquivo [knitr-template.Rnw](template/knitr-template.Rnw),
-e veja os demais arquivos gerados dentro do diretório
-[`template/`](template/).
-
+Para ver o código fonte acesse [`index.Rmd`](index.Rmd).
 
 ## Licença
 
